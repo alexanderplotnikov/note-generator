@@ -69,3 +69,5 @@ generatedNote += programVariation + " ";
 let textArea = document.querySelector("textarea");
 console.log(textArea);
 textArea.value = generatedNote;
+
+// add comment testing
