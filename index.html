@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/reset.css.css">
-    <link rel="stylesheet" href="/styles/style.css.css">
+    <link rel="stylesheet" type="text/css" href="/styles/reset.css">
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
     
     <title>Note Generator</title>
 </head>
@@ -17,7 +17,7 @@
         <!--show once selected type of note-->
         <ul class="menuHidden">
             <!--show only one; allign to the left-->
-            <li>RGT Note</li>
+            <li>RBT Note</li>
             <li>BCBA Note</li>
             <!--allign buttons to the right-->
             <li><div type="button">Generate</div></li>
@@ -25,12 +25,40 @@
         </ul>
     </nav>
     <!--main page-->
-    <div class="noteSelection"></div>
-    <!--show if rgt note was chosen-->
-    <div class="rgtNote"></div>
+    <div class="noteSelection">
+        <div></div><!--RBT Note Selection-->
+        <div></div><!--BCBA Note Selection-->
+    </div>
+    <!--show if rbt note was chosen-->
+    <div class="rbtNote">
+        <div id="puzzleGame">
+            <div>
+                <input type="checkbox" checked>
+                <p>Puzzle's game</p>
+            </div>
+            
+            <input id="puzzleGameInput" value="2/15"> <!--2/15-->
+            <input id = "puzzleGamePercent" type="checkbox" checked> <!--%?-->
+        </div>
+        <div>
+            <input type="checkbox">
+            <p>Sudoku's game</p>
+            <input> <!--2/15-->
+            <input type="checkbox"> <!--%?-->
+        </div>
+        <div>
+            <input type="checkbox" checked>
+            <p>Snake game</p>
+            <input> <!--6/10-->
+            <input type="checkbox" checked> <!--%?-->
+        </div>
+
+        <textarea value="insert result here"></textarea>
+
+    </div>
     <!--show if bcba note was chosen-->
     <div class="bcbaNote"></div>
-
+    <div class="noteResult"></div>
     
     <script src="/scripts/main.js"></script>
 </body>
