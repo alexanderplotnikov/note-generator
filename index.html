@@ -10,6 +10,7 @@
 </head>
 <body>
     <nav>
+        
         <!--hide once selected type of note-->
         <ul class="menuHeader"> 
             <li>Session Note Generator</li>
@@ -20,7 +21,7 @@
             <li>RBT Note</li>
             <li>BCBA Note</li>
             <!--allign buttons to the right-->
-            <li><div type="button">Generate</div></li>
+            <li><div type="button" id = "generateNote">Generate</div></li>
             <li><div type="button">Back</div></li>
         </ul>
     </nav>
@@ -33,7 +34,8 @@
     <div class="rbtNote">
         <div id="programList">
             <div class = "programItem" id = "puzzle"><!--this ID has to match with key name is libraryOfPrograms-->
-                <div>
+                <!--#puzzle > .selected > lable > input-->
+                <div class = "selected">
                     <!--If NOT selected skip to the next element; 
                         if selected proceed to extract user's input; 
                         if selected, but no input prompt an error message; -->
@@ -46,7 +48,7 @@
                 </div>
             </div>
             <div class = "programItem" id = "activitySchedule"><!--this ID has to match with key name is libraryOfPrograms-->
-                <div>
+                <div class = "selected">
                     <label><input id="input"type="checkbox">Activity Schedule</label> 
                 </div>
                 <div class="userInput">
@@ -55,8 +57,20 @@
                     <label>Display %?<input class="isPercentChecked" type="checkbox"></label>
                 </div>
             </div>
+            <div class = "programItem" id = "walking"><!--this ID has to match with key name is libraryOfPrograms-->
+                <div class = "selected">
+                    <label><input id="input"type="checkbox">Walking</label> 
+                </div>
+                <div class="userInput">
+                    <!--This DIV is hidden; if program is selected - show userInput class-->
+                    <input class = "extractThisInput" type="text">
+                    <label>Display %?<input class="isPercentChecked" type="checkbox"></label>
+                </div>
+            </div>
             
-            
+            <!--`#${programList[i].id} > .userInput > .extractThisInput > `-->
+
+
         </div>
         <div id="textAreaResult">
             <textarea value="insert result here"></textarea>
