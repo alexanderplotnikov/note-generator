@@ -8,12 +8,18 @@
 //add result to generatedNote
 //go to the next item in the array
 //repeat until last item
-let idForSelectedInput = "puzzleGameInput"; // for test purposes
-let isPercentCheckbox = "puzzleGamePercent"; //test
+let idForSelectedInput = "extractThisInput"; // for test purposes
+let isPercentCheckbox = "isPercentChecked"; //test
 let generatedNote = "";
 let gender = "He"; 
 //display generatedNote in <textarea> below
-let userInput = document.querySelector(`#${idForSelectedInput}`).value;
+let userInput = document.querySelector(`.${idForSelectedInput}`).value;
+//resets input on page reload
+var resetInput = document.getElementsByTagName("input");
+for (let ii=0; ii < resetInput.length; ii++) {
+    resetInput[ii].value = "";
+    resetInput[ii].checked = false;
+}
 let libraryOfPrograms = [ 
                         //RBT PROGRAMS
                         {name: "puzzle", result: [`${userInput} puzzle First variation and then ${gender} wrote `, `puzzle Second ${userInput} variation`, `puzzle third variation ${userInput}`]},
@@ -86,9 +92,9 @@ console.log(randomNumber);
 let programVariation = Object.values(libraryOfPrograms[0]["result"])[randomNumber];//return Result array(for the Selected item) from libraryOfPrograms
 console.log(programVariation)
 ////convert to percentages if prompted
-let convertToPercent = document.querySelector(`#${isPercentCheckbox}`).checked; // returns true or false
+let convertToPercent = document.querySelector(`.${isPercentCheckbox}`).checked; // returns true or false
 if (convertToPercent){ //convert to Integer 
-    userInput = toString(parseInt(puzzleGameInput) * 100) + "%";
+    userInput = toString(parseInt(userInput) * 100) + "%";
 }
 
 
