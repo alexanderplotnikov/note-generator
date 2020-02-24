@@ -2,18 +2,28 @@ const programList = document.querySelectorAll(".programItem");
 const textArea = document.querySelector("textarea");
 const resetInput = document.getElementsByTagName("input"); //used to reset input fields
 const generateButton = document.querySelector("#generateNote");//generate note button
-let gender = "He";
-let inputArray = [];
-let userInput = "";
+let name = document.querySelector("#username > .userInput > .extractThisInput"); // store name for Library templates
+let gender = document.querySelector("#gender > .userInput > .extractThisInput");//store gender for Library templates
+let userInput;
 
 //This function returns an array of sentences of a matched id
 //libraryOfPrograms has to have an id and at least one string in result; name is optional
-function LibraryP(userInput, programId){
+function LibraryP(userInput, programId, name, gender){
+    this.name = name;
+    this.gender = gender;
     this.programId = programId;
     this.userInput = userInput;
+    if(programId == "demeanor"){
+        const demenorCase = {
+            smiling: [`${gender} was smiling`, `${gender} came in happy today`],
+            frowning: [`${gender} was frowning`],
+            crying: [`${gender} was crying`, `${gender} came in upset today`],
+        }
+        return demenorCase[`${userInput}`];
+    }
     this.libraryOfPrograms = [ 
         //RBT PROGRAMS
-        {id: "puzzle",           name: "Puzzle",                        result: [`${userInput} puzzle First variation and then ${gender} wrote `, `puzzle Second ${userInput} variation`, `puzzle third variation ${userInput}`]},
+        {id: "puzzle",           name: "Puzzle",                        result: [`${(userInput)} puzzle First variation and then ${gender} wrote `, `puzzle ${name}Second ${userInput} variation`, `puzzle third variation ${userInput}`]},
         {id: "activitySchedule", name: "Activity Schedule",             result: [`${userInput} schedule First variation`, `schedule Second ${userInput}variation`, `schedule third variation ${userInput}`]}, 
         {id: "walking",          name: "Walking",                       result: [`${userInput} walking First variation`, `walking Second ${userInput}variation`, `walking third variation ${userInput}`]},
         {id: "waiting",          name: "Waiting",                       result: [`${userInput} waiting First variation`, `waiting Second ${userInput}variation`, `waiting third variation ${userInput}`]},
@@ -51,19 +61,16 @@ function LibraryP(userInput, programId){
         {id: "np",               name: "Non-Preferred Activites",       result: [`${userInput} np First variation`, `np Second ${userInput}variation`, `np third variation ${userInput}`]},
     
         //Opening Statement
-        {id: "username", name: "Learner's Name", result: [`Learner's name: ${userInput}`]},
-        {id: "gender", name: "Learner's Gender", result: [`Gender: ${userInput}`]},
-        {id: "demeanor", name: "Learner's Demeanor", result: [`Learner's demeanor: ${userInput}`]},
-        {id: "guests", name: "People Present During Session", result: [`People present: ${userInput}`]},
+        {id: "guests", name: "People Present During Session", result: [`People Present During Session were: ${userInput}`]},
     ];
     let i = 0;
     while (programId !== this.libraryOfPrograms[i]["id"]) { i++; } //finds a match
-    return this.libraryOfPrograms[i]["result"]; 
+    return this.libraryOfPrograms[i]["result"];
 }
 
 //Main functions
 //loops through libraryOfPrograms and only outputs selected programs
-function generateNote() {
+function generateNote(usrname, usrgender) {
     let generatedNote = ""; // resets a note
     let programId; //temporarily store id value
     let selected;
@@ -73,7 +80,7 @@ function generateNote() {
         selected = document.querySelector(`#${programId} > .selected > label > #input`).checked; // returns true or false
         if (selected) { // if checked
             userInput = document.querySelector(`#${programId} > .userInput > .extractThisInput`).value; //extracts user's input
-            let resultArray = new LibraryP(userInput, programId); //updates programs Library with new userInput
+            let resultArray = new LibraryP(userInput, programId, usrname, usrgender); //updates programs Library with new userInput
             randomNumber = (Math.floor(Math.random() * Math.floor(resultArray.length)))//generates random number
             generatedNote += resultArray[randomNumber] + " ";
         }
@@ -89,16 +96,27 @@ function resetInputField(){
         resetInput[ii].checked = false;
     }
 }
-resetInputField();
+//resetInputField();
 //convert to percentages if prompted (OPTIONAL FEATURE)
-/*
-let convertToPercent = document.querySelector(`.${isPercentCheckbox}`).checked; // returns true or false
-if (convertToPercent){ //convert to Integer 
-    userInput = toString(parseInt(userInput) * 100) + "%";
-}
-*/
+
+// function toPercent(input){
+//     console.log(input.split(""));
+//     let arr = [];
+//     input = input.split("");
+//     for (let each in input){
+//         if( elem != "/"){
+//             arr[each]
+//         }
+//     }
+
+// }
+    
+
+
 
 //Event listeners
 generateButton.addEventListener("click", () => {
-    generateNote();
+    usrname = name.value;
+    usrgender = gender.value;
+    generateNote(usrname, usrgender);
 });

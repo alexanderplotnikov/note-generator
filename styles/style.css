@@ -1,4 +1,4 @@
-.programItem > div{
+#programList > div > div{
     display: inline-block;
 }
 #generateNote{
