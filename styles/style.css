@@ -1,3 +1,7 @@
 .programItem > div{
     display: inline-block;
 }
+
+.category {
+    font-size: 50px;
+}

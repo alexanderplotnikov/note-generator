@@ -32,6 +32,38 @@
     </div>
     <!--show if rbt note was chosen-->
     <div class="rbtNote">
+        <!--Opening Statement-->
+        <div class = "opener">
+            <h1 class = "category">Opener</h1>
+            <div class = "openerItem">
+                <label><input id="input"type="checkbox">Learner's First Name:</label>
+                <input class = "extractThisInput" type="text">            
+            </div>
+            <div class = "openerItem">
+                <label><input id="input"type="checkbox">Learner's Gender:</label>
+                <select class = "extractThisInput">
+                    <option value="select">--Select--</option>
+                    <option value="boy">Boy</option>
+                    <option value="girl">Girl</option>
+                </select>          
+            </div>
+            <div class = "openerItem">
+                <label><input id="input"type="checkbox">Learner's Demeanor:</label>
+                <select class = "extractThisInput">
+                    <option value="select">--Select--</option>
+                    <option value="smiling">Smiling</option>
+                    <option value="girl">Frowning</option>
+                    <option value="crying">Crying</option>
+                    <!--Change these examples to something better later-->
+                </select>          
+            </div>
+            <div class = "openerItem">
+                <label><input id="input"type="checkbox">People Present During Session</label>
+                <input class = "extractThisInput" type="text">            
+            </div>
+        </div>
+        <!--Skill Acquisition Section-->
+        <h1 class="category">Skill Acquisition</h1>
         <div id="programList">
             <div class = "programItem" id = "puzzle"><!--this ID has to match with key name is libraryOfPrograms-->
                 <!--#puzzle > .selected > lable > input-->
@@ -44,7 +76,6 @@
                 <div class="userInput">
                     <!--This DIV is hidden; if program is selected - show userInput class-->
                     <input class = "extractThisInput" type="text">
-                    <label>Display %?<input class="isPercentChecked" type="checkbox"></label>
                 </div>
             </div>
             <div class = "programItem" id = "activitySchedule"><!--this ID has to match with key name is libraryOfPrograms-->
@@ -54,7 +85,6 @@
                 <div class="userInput">
                     <!--This DIV is hidden; if program is selected - show userInput class-->
                     <input class = "extractThisInput" type="text">
-                    <label>Display %?<input class="isPercentChecked" type="checkbox"></label>
                 </div>
             </div>
             <div class = "programItem" id = "walking"><!--this ID has to match with key name is libraryOfPrograms-->
@@ -64,7 +94,6 @@
                 <div class="userInput">
                     <!--This DIV is hidden; if program is selected - show userInput class-->
                     <input class = "extractThisInput" type="text">
-                    <label>Display %?<input class="isPercentChecked" type="checkbox"></label>
                 </div>
             </div>
             
