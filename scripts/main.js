@@ -9,10 +9,9 @@ let userInput;
 //This function returns an array of sentences of a matched id
 //libraryOfPrograms has to have an id and at least one string in result; name is optional
 function LibraryP(userInput, programId, name, gender){
-    this.name = name;
-    this.gender = gender;
-    this.programId = programId;
-    this.userInput = userInput;
+    
+
+    //handels a special case with "demeanor"
     if(programId == "demeanor"){
         const demenorCase = {
             smiling: [`${gender} was smiling`, `${gender} came in happy today`],
@@ -21,9 +20,9 @@ function LibraryP(userInput, programId, name, gender){
         }
         return demenorCase[`${userInput}`];
     }
-    this.libraryOfPrograms = [ 
+    libraryOfPrograms = [ 
         //RBT PROGRAMS
-        {id: "puzzle",           name: "Puzzle",                        result: [`${(userInput)} puzzle First variation and then ${gender} wrote `, `puzzle ${name}Second ${userInput} variation`, `puzzle third variation ${userInput}`]},
+        {id: "puzzle",           name: "Puzzle",                        result: [`${(toPercent(userInput))} puzzle First variation and then ${gender} wrote `, `puzzle ${name}Second ${userInput} variation`, `puzzle third variation ${userInput}`]},
         {id: "activitySchedule", name: "Activity Schedule",             result: [`${userInput} schedule First variation`, `schedule Second ${userInput}variation`, `schedule third variation ${userInput}`]}, 
         {id: "walking",          name: "Walking",                       result: [`${userInput} walking First variation`, `walking Second ${userInput}variation`, `walking third variation ${userInput}`]},
         {id: "waiting",          name: "Waiting",                       result: [`${userInput} waiting First variation`, `waiting Second ${userInput}variation`, `waiting third variation ${userInput}`]},
@@ -64,8 +63,8 @@ function LibraryP(userInput, programId, name, gender){
         {id: "guests", name: "People Present During Session", result: [`People Present During Session were: ${userInput}`]},
     ];
     let i = 0;
-    while (programId !== this.libraryOfPrograms[i]["id"]) { i++; } //finds a match
-    return this.libraryOfPrograms[i]["result"];
+    while (programId !== libraryOfPrograms[i]["id"]) { i++; } //finds a match
+    return libraryOfPrograms[i]["result"];
 }
 
 //Main functions
@@ -80,6 +79,10 @@ function generateNote(usrname, usrgender) {
         selected = document.querySelector(`#${programId} > .selected > label > #input`).checked; // returns true or false
         if (selected) { // if checked
             userInput = document.querySelector(`#${programId} > .userInput > .extractThisInput`).value; //extracts user's input
+            if (userInput == ""){// alternative method: a function that toggles a class Error and changes border color to red
+                alert(`missing information for ${programId}`);
+                break;//or use continue?; continue prompts an error, but then continues with note generation
+            }
             let resultArray = new LibraryP(userInput, programId, usrname, usrgender); //updates programs Library with new userInput
             randomNumber = (Math.floor(Math.random() * Math.floor(resultArray.length)))//generates random number
             generatedNote += resultArray[randomNumber] + " ";
@@ -96,27 +99,26 @@ function resetInputField(){
         resetInput[ii].checked = false;
     }
 }
+
 //resetInputField();
-//convert to percentages if prompted (OPTIONAL FEATURE)
-
-// function toPercent(input){
-//     console.log(input.split(""));
-//     let arr = [];
-//     input = input.split("");
-//     for (let each in input){
-//         if( elem != "/"){
-//             arr[each]
-//         }
-//     }
-
-// }
+//apply this function directly in projectOfLibrary array Ex. ${toPercent(userInput)}
+function toPercent(input){
+    input = input.split("/");
+    return Math.round(input[0] / input[1] * 100) + "%";
+}
     
-
-
-
 //Event listeners
 generateButton.addEventListener("click", () => {
-    usrname = name.value;
+    usrname = name.value.trim();//use trim to erase white spaces Ex. "   " returns ""
     usrgender = gender.value;
-    generateNote(usrname, usrgender);
+    if(usrname == ""){
+        alert("missing name");
+    }
+    else if(usrgender == "novalue"){
+        alert("missing gender");
+    }
+    else{
+        usrname = usrname[0].toUpperCase() + usrname.slice(1).toLowerCase(); //ensures name capitalization
+        generateNote(usrname, usrgender);
+    } 
 });
