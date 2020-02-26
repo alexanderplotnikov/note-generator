@@ -22,11 +22,11 @@ function LibraryP(userInput, programId, name, gender){
     }
     libraryOfPrograms = [ 
         //RBT PROGRAMS
-        {id: "puzzle",           name: "Puzzle",                        result: [`${(toPercent(userInput))} puzzle First variation and then ${gender} wrote `, `puzzle ${name}Second ${userInput} variation`, `puzzle third variation ${userInput}`]},
-        {id: "activitySchedule", name: "Activity Schedule",             result: [`${userInput} schedule First variation`, `schedule Second ${userInput}variation`, `schedule third variation ${userInput}`]}, 
-        {id: "walking",          name: "Walking",                       result: [`${userInput} walking First variation`, `walking Second ${userInput}variation`, `walking third variation ${userInput}`]},
-        {id: "waiting",          name: "Waiting",                       result: [`${userInput} waiting First variation`, `waiting Second ${userInput}variation`, `waiting third variation ${userInput}`]},
-        {id: "cleanUp",          name: "Clean Up",                      result: [`${userInput} cleanUp First variation`, `cleanUp Second ${userInput}variation`, `cleanUp third variation ${userInput}`]},
+        {o: 1, id: "puzzle",           name: "Puzzle",                        result: [`${(toPercent(userInput))} puzzle First variation and then ${gender} wrote `, `puzzle ${name}Second ${userInput} variation`, `puzzle third variation ${userInput}`]},
+        {o: 3, id: "activitySchedule", name: "Activity Schedule",             result: [`${userInput} schedule First variation`, `schedule Second ${userInput}variation`, `schedule third variation ${userInput}`]}, 
+        {o: 2, id: "walking",          name: "Walking",                       result: [`${userInput} walking First variation`, `walking Second ${userInput}variation`, `walking third variation ${userInput}`]},
+        {o: 4, id: "waiting",          name: "Waiting",                       result: [`${userInput} waiting First variation`, `waiting Second ${userInput}variation`, `waiting third variation ${userInput}`]},
+        {o: 5, id: "cleanUp",          name: "Clean Up",                      result: [`${userInput} cleanUp First variation`, `cleanUp Second ${userInput}variation`, `cleanUp third variation ${userInput}`]},
         {id: "safetyDirections", name: "Clean Up",                      result: [`${userInput} safetyDirections First variation`, `safetyDirections Second ${userInput}variation`, `safetyDirections third variation ${userInput}`]},
         {id: "sorting",          name: "Sorting",                       result: [`${userInput} sorting First variation`, `sorting Second ${userInput}variation`, `sorting third variation ${userInput}`]},
         {id: "stringingBeads",   name: "Stringing Beads",               result: [`${userInput} stringingBeads First variation`, `stringingBeads Second ${userInput}variation`, `stringingBeads third variation ${userInput}`]},
@@ -58,7 +58,9 @@ function LibraryP(userInput, programId, name, gender){
         {id: "smallGroups",      name: "Small Group Activites",         result: [`${userInput} smallGroups First variation`, `smallGroups Second ${userInput}variation`, `smallGroups third variation ${userInput}`]},
         {id: "interval",         name: "Interval Data",                 result: [`${userInput} interval First variation`, `interval Second ${userInput}variation`, `interval third variation ${userInput}`]},
         {id: "np",               name: "Non-Preferred Activites",       result: [`${userInput} np First variation`, `np Second ${userInput}variation`, `np third variation ${userInput}`]},
-    
+        
+        //Purpose of Session
+        {id: "purpose", name: "Purpose of Session", result: [`Purpose of the session is ${userInput}`]},
         //Opening Statement
         {id: "guests", name: "People Present During Session", result: [`People Present During Session were: ${userInput}`]},
     ];
@@ -66,6 +68,51 @@ function LibraryP(userInput, programId, name, gender){
     while (programId !== libraryOfPrograms[i]["id"]) { i++; } //finds a match
     return libraryOfPrograms[i]["result"];
 }
+
+/*
+<div id="programList">  append everything below to this div
+<h1 class="category">Skill Acquisition</h1>
+<div class = "programItem title" id = "puzzle"><!--this ID has to match with key name is libraryOfPrograms-->
+    <div class = "selected">
+        <label><input type="checkbox">Puzzle</label> 
+    </div>
+    <div class="userInput">
+        <input class = "extractThisInput" type="text">
+    </div>
+</div>
+*/
+//html automation
+//
+function generateHtml(){
+    let mainNode = document.querySelector("#programList");
+    let label = document.createElement("LABEL");
+    let input = document.createElement("INPUT");
+    let divParent = document.createElement("DIV");
+    let divSelected = document.createElement("DIV");
+    let divUserInput = document.createElement("DIV");
+    let extractInput = document.createElement("INPUT");
+    let attrType = document.createAttribute("type"); attrType.value = "checkbox";
+    let attrClassSelected = document.createAttribute("class"); attrClassSelected.value = "selected";
+    let attrClassProgramItem = document.createAttribute("class"); attrClassProgramItem.value = "programItem";
+    let attrTypeText = document.createAttribute("type"); attrTypeText.value = "text";
+    let attrClassExtract = document.createAttribute("class"); attrClassExtract.value = "extractThisInput";
+    
+    //loop here
+    divParent.setAttributeNode(attrClassProgramItem);
+    divSelected.setAttributeNode(attrClassSelected);
+    input.setAttributeNode(attrType);
+    label.appendChild(input);
+    label.append("program name"); //variable here
+    divSelected.appendChild(label);
+    divParent.appendChild(divSelected);
+
+    extractInput.setAttributeNode(attrTypeText);
+    extractInput.setAttributeNode(attrClassExtract);
+    divUserInput.appendChild(extractInput);
+    divParent.appendChild(divUserInput);
+    mainNode.appendChild(divParent);
+}
+
 
 //Main functions
 //loops through libraryOfPrograms and only outputs selected programs
@@ -76,7 +123,7 @@ function generateNote(usrname, usrgender) {
     let randomNumber = 0;
     for (let i = 0; i < programList.length; i++) { 
         programId = programList[i].id;
-        selected = document.querySelector(`#${programId} > .selected > label > #input`).checked; // returns true or false
+        selected = document.querySelector(`#${programId} > .selected > label > input`).checked; // returns true or false
         if (selected) { // if checked
             userInput = document.querySelector(`#${programId} > .userInput > .extractThisInput`).value; //extracts user's input
             if (userInput == ""){// alternative method: a function that toggles a class Error and changes border color to red

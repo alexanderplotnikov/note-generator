@@ -32,37 +32,22 @@
     </div>
     <!--show if rbt note was chosen-->
     <div class="rbtNote">
-        <!-- <div class = "opener">
-            <h1 class = "category">Opener</h1>
-            <div class = "openerItem">
-                <label><input id="input"type="checkbox">Learner's First Name:</label>
-                <input class = "extractThisInput" type="text">            
-            </div>
-            <div class = "openerItem">
-                <label><input id="input"type="checkbox">Learner's Gender:</label>
-                <select class = "extractThisInput">
-                    <option selected disabled>--Select--</option>
-                    <option value="boy">Boy</option>
-                    <option value="girl">Girl</option>
-                </select>          
-            </div>
-            <div class = "openerItem">
-                <label><input id="input"type="checkbox">Learner's Demeanor:</label>
-                <select class = "extractThisInput">
-                    <option selected disabled>--Select--</option>
-                    <option value="smiling">Smiling</option>
-                    <option value="girl">Frowning</option>
-                    <option value="crying">Crying</option>
-                    
-                </select>          
-            </div>
-            <div class = "openerItem">
-                <label><input id="input"type="checkbox">People Present During Session</label>
-                <input class = "extractThisInput" type="text">            
-            </div>
-        </div> -->
         <div id="programList">
             <!--Opening Statement-->
+            <h1 class = "category">Purporse of Session</h1>
+            <div class = "openerItem programItem" id = "purpose">
+                <div class="selected">
+                    <label><input id="input"type="checkbox">Learner's Demeanor:</label>
+                </div>
+                <div class="userInput">
+                    <select class = "extractThisInput">
+                        <option value="" selected disabled>--Select--</option>
+                        <option value="choice 1">choice 1</option>
+                        <option value="choice 2">choice 2</option>
+                        <option value="choice 3">choice 3</option>
+                    </select>
+                </div>       
+            </div>
             <h1 class = "category">Opener</h1>
             <div class = "openerItem" value = "" id = "username">
                 <div class="selected">
@@ -108,7 +93,7 @@
 
             <!--Skill Acquisition Section-->
             <h1 class="category">Skill Acquisition</h1>
-            <div class = "programItem" id = "puzzle"><!--this ID has to match with key name is libraryOfPrograms-->
+            <div class = "programItem title" id = "puzzle"><!--this ID has to match with key name is libraryOfPrograms-->
                 <div class = "selected">
                     <!--If NOT selected skip to the next element; 
                         if selected proceed to extract user's input; 
