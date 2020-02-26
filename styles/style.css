@@ -18,3 +18,7 @@
 .category {
     font-size: 50px;
 }
+#textAreaResult > textarea{
+    height: 200px;
+    width: 600px;
+}

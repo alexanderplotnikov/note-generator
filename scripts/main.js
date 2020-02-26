@@ -1,16 +1,13 @@
-const programList = document.querySelectorAll(".programItem");
 const textArea = document.querySelector("textarea");
 const resetInput = document.getElementsByTagName("input"); //used to reset input fields
 const generateButton = document.querySelector("#generateNote");//generate note button
 let name = document.querySelector("#username > .userInput > .extractThisInput"); // store name for Library templates
 let gender = document.querySelector("#gender > .userInput > .extractThisInput");//store gender for Library templates
-let userInput;
+let userInput = "";
 
 //This function returns an array of sentences of a matched id
 //libraryOfPrograms has to have an id and at least one string in result; name is optional
 function LibraryP(userInput, programId, name, gender){
-    
-
     //handels a special case with "demeanor"
     if(programId == "demeanor"){
         const demenorCase = {
@@ -22,10 +19,12 @@ function LibraryP(userInput, programId, name, gender){
     }
     libraryOfPrograms = [ 
         //RBT PROGRAMS
-        {o: 1, id: "puzzle",           name: "Puzzle",                        result: [`${(toPercent(userInput))} puzzle First variation and then ${gender} wrote `, `puzzle ${name}Second ${userInput} variation`, `puzzle third variation ${userInput}`]},
-        {o: 3, id: "activitySchedule", name: "Activity Schedule",             result: [`${userInput} schedule First variation`, `schedule Second ${userInput}variation`, `schedule third variation ${userInput}`]}, 
-        {o: 2, id: "walking",          name: "Walking",                       result: [`${userInput} walking First variation`, `walking Second ${userInput}variation`, `walking third variation ${userInput}`]},
-        {o: 4, id: "waiting",          name: "Waiting",                       result: [`${userInput} waiting First variation`, `waiting Second ${userInput}variation`, `waiting third variation ${userInput}`]},
+        // edit key "o" numerically to change order
+        // type "exclude" to temporarily disable
+        {o: 4, id: "puzzle",           name: "Puzzle",                        result: [`${(toPercent(userInput))} puzzle First variation and then ${gender} wrote `, `puzzle ${name}Second ${userInput} variation`, `puzzle third variation ${userInput}`]},
+        {o: 2, id: "activitySchedule", name: "Activity Schedule",             result: [`${userInput} schedule First variation`, `schedule Second ${userInput}variation`, `schedule third variation ${userInput}`]}, 
+        {o: 1, id: "walking",          name: "Walking",                       result: [`${userInput} walking First variation`, `walking Second ${userInput}variation`, `walking third variation ${userInput}`]},
+        {o: 3, id: "waiting",          name: "Waiting",                       result: [`${userInput} waiting First variation`, `waiting Second ${userInput}variation`, `waiting third variation ${userInput}`]},
         {o: 5, id: "cleanUp",          name: "Clean Up",                      result: [`${userInput} cleanUp First variation`, `cleanUp Second ${userInput}variation`, `cleanUp third variation ${userInput}`]},
         {id: "safetyDirections", name: "Clean Up",                      result: [`${userInput} safetyDirections First variation`, `safetyDirections Second ${userInput}variation`, `safetyDirections third variation ${userInput}`]},
         {id: "sorting",          name: "Sorting",                       result: [`${userInput} sorting First variation`, `sorting Second ${userInput}variation`, `sorting third variation ${userInput}`]},
@@ -60,19 +59,25 @@ function LibraryP(userInput, programId, name, gender){
         {id: "np",               name: "Non-Preferred Activites",       result: [`${userInput} np First variation`, `np Second ${userInput}variation`, `np third variation ${userInput}`]},
         
         //Purpose of Session
-        {id: "purpose", name: "Purpose of Session", result: [`Purpose of the session is ${userInput}`]},
+        {o: "disabled", id: "purpose", name: "Purpose of Session", result: [`Purpose of the session is ${userInput}`]},
         //Opening Statement
         {id: "guests", name: "People Present During Session", result: [`People Present During Session were: ${userInput}`]},
     ];
-    let i = 0;
-    while (programId !== libraryOfPrograms[i]["id"]) { i++; } //finds a match
-    return libraryOfPrograms[i]["result"];
+    if(isGenerate){
+        return libraryOfPrograms;//returns an array formatted for constructing html
+    }
+    else{
+        let i = 0;
+        while (programId !== libraryOfPrograms[i]["id"]) { i++; } //finds a match
+        return libraryOfPrograms[i]["result"];
+    }
+    
 }
 
 /*
 <div id="programList">  append everything below to this div
 <h1 class="category">Skill Acquisition</h1>
-<div class = "programItem title" id = "puzzle"><!--this ID has to match with key name is libraryOfPrograms-->
+<div class = "programItem title" id = "puzzle">
     <div class = "selected">
         <label><input type="checkbox">Puzzle</label> 
     </div>
@@ -83,40 +88,60 @@ function LibraryP(userInput, programId, name, gender){
 */
 //html automation
 //
+let isGenerate;
 function generateHtml(){
-    let mainNode = document.querySelector("#programList");
-    let label = document.createElement("LABEL");
-    let input = document.createElement("INPUT");
-    let divParent = document.createElement("DIV");
-    let divSelected = document.createElement("DIV");
-    let divUserInput = document.createElement("DIV");
-    let extractInput = document.createElement("INPUT");
-    let attrType = document.createAttribute("type"); attrType.value = "checkbox";
-    let attrClassSelected = document.createAttribute("class"); attrClassSelected.value = "selected";
-    let attrClassProgramItem = document.createAttribute("class"); attrClassProgramItem.value = "programItem";
-    let attrTypeText = document.createAttribute("type"); attrTypeText.value = "text";
-    let attrClassExtract = document.createAttribute("class"); attrClassExtract.value = "extractThisInput";
+    isGenerate = true; // makes sure library returns an array formated for constructing html
+    let libraryArray = new LibraryP(userInput, isGenerate);
+    libraryArray.sort((a, b) => a["o"] - b["o"]);//sorts an array in order according to "o" values
+    console.log(libraryArray);
+  
+    for (let i = 0; i < libraryArray.length; i++){
+        if(libraryArray[i]["o"] == "disabled"){
+            continue; // excludes items from html with "disabled" tag in LibraryP
+        }
+        //instructions to add a class or any other attribute
+        //make a variable for new attribute; assign a value to the newly created attribute
+        //set attribute to an element
+        //append element to parent
+        let mainNode = document.querySelector("#programList");
+        let label = document.createElement("LABEL");
+        let input = document.createElement("INPUT");
+        let divParent = document.createElement("DIV");
+        let divSelected = document.createElement("DIV");
+        let divUserInput = document.createElement("DIV");
+        let extractInput = document.createElement("INPUT");
+        let attrType = document.createAttribute("type"); attrType.value = "checkbox";
+        let attrClassSelected = document.createAttribute("class"); attrClassSelected.value = "selected";
+        let attrClassProgramItem = document.createAttribute("class"); attrClassProgramItem.value = "programItem";
+        let attrIdProgramId = document.createAttribute("id"); attrIdProgramId.value = `${libraryArray[i]["id"]}`;//variable ID
+        let attrTypeText = document.createAttribute("type"); attrTypeText.value = "text";
+        let attrClassExtract = document.createAttribute("class"); attrClassExtract.value = "extractThisInput";
+        let attrClassUserInput = document.createAttribute("class"); attrClassUserInput.value = "userInput";
+        
+        divParent.setAttributeNode(attrClassProgramItem);
+        divParent.setAttributeNode(attrIdProgramId);
+        divSelected.setAttributeNode(attrClassSelected);
+        input.setAttributeNode(attrType);
+        label.appendChild(input);
+        label.append(`${libraryArray[i]["name"]}`); //variable NAME
+        divSelected.appendChild(label);
+        divParent.appendChild(divSelected);
     
-    //loop here
-    divParent.setAttributeNode(attrClassProgramItem);
-    divSelected.setAttributeNode(attrClassSelected);
-    input.setAttributeNode(attrType);
-    label.appendChild(input);
-    label.append("program name"); //variable here
-    divSelected.appendChild(label);
-    divParent.appendChild(divSelected);
-
-    extractInput.setAttributeNode(attrTypeText);
-    extractInput.setAttributeNode(attrClassExtract);
-    divUserInput.appendChild(extractInput);
-    divParent.appendChild(divUserInput);
-    mainNode.appendChild(divParent);
+        extractInput.setAttributeNode(attrTypeText);
+        extractInput.setAttributeNode(attrClassExtract);
+        divUserInput.setAttributeNode(attrClassUserInput);
+        divUserInput.appendChild(extractInput);
+        divParent.appendChild(divUserInput);
+        mainNode.appendChild(divParent);
+    }
 }
-
-
+generateHtml();
 //Main functions
 //loops through libraryOfPrograms and only outputs selected programs
 function generateNote(usrname, usrgender) {
+    let programList = document.querySelectorAll(".programItem");
+    console.log(programList)
+    isGenerate = false;
     let generatedNote = ""; // resets a note
     let programId; //temporarily store id value
     let selected;
@@ -141,9 +166,9 @@ function generateNote(usrname, usrgender) {
 //Helper functions
 //resets input fields on Page Reload
 function resetInputField(){
-    for (let ii=0; ii < resetInput.length; ii++) {
-        resetInput[ii].value = "";
-        resetInput[ii].checked = false;
+    for (let i=0; i < resetInput.length; i++) {
+        resetInput[i].value = "";
+        resetInput[i].checked = false;
     }
 }
 
