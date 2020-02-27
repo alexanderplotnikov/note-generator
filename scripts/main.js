@@ -10,36 +10,47 @@ function saVariationOne(programN) {
     return (`${(toPercent(userInput))} of ${programN} components were scored as indepedent during this observation.`)
 }
 
-function saVariationTwo(programN){
+function saVariationTwo(name, programN){
     return (`${name} independently completed ${userInput} ${programN} components.`)
 }
 
-function saVariationThree(programN){
+function saVariationThree(gender, programN){
     return (`${gender} completed ${userInput} ${programN} trials independently during session.`)
 }
 
+function randomVariation(name, gender, programN){
+    return [`${(toPercent(userInput))} of ${programN} components were scored as indepedent during this observation.`,
+            `${name} independently completed ${userInput} ${programN} components.`,
+            `${gender} completed ${userInput} ${programN} trials independently during session.`];
+}
 
 //This function returns an array of sentences of a matched id
 //libraryOfPrograms has to have an id and at least one string in result; name is optional
 function LibraryP(userInput, programId, name, gender){
     //handles a special case with "demeanor"
-    if(programId == "demeanor"){
-        const demenorCase = {
+    if(programId == "demeanor" || programId == "purpose"){
+        const specialCase = {
+            //Demeanor Case
             smiling: [`The learner presented with a smile.`, `${name} greeted the therapist with a smile and enthusiastic greeting.`],
             frowning: [`${gender} was frowning`],
             crying: [`${gender} was crying`, `${gender} came in upset today`],
+            //Purpose of the Session Case
+            direct: [`The purpose of today's session was to provide direct therapy and implement skill acquisition and behavior decrease targets.`],
+            pairing: [`pairing fill in`],
+            generalization: [`generalization fill in`],
+            
         }
-        return demenorCase[`${userInput}`];
+        return specialCase[`${userInput}`];
     }
     libraryOfPrograms = [ 
         //RBT PROGRAMS
         // edit key "o" numerically to change order
         // type "exclude" to temporarily disable
-        {o: 4, id: "puzzle",           name: "Puzzle",                  result: [`${saVariationOne("puzzle")}`, `${saVariationTwo("puzzle")}`, `${saVariationThree("puzzle")}`]},
+        {o: 4, id: "puzzle",           name: "Puzzle",                  result: [`${saVariationOne("puzzle")}`, `${saVariationTwo(name, "puzzle")}`, `${saVariationThree(gender, "puzzle")}`]},
         {o: 2, id: "activitySchedule", name: "Activity Schedule",       result: [`${saVariationOne("activity schedule")}`, `${saVariationTwo("activity schedule")}`, `${saVariationThree("activity schedule")}`]}, 
         {o: 1, id: "walking",          name: "Walking",                 result: [`${saVariationOne("walking")}`, `${saVariationTwo("walking")}`, `${saVariationThree("walking")}`]},
         {o: 3, id: "waiting",          name: "Waiting",                 result: [`${saVariationOne("waiting")}`, `${saVariationTwo("waiting")}`, `${saVariationThree("waiting")}`]},
-        {o: 5, id: "cleanUp",          name: "Clean Up",                result: [`${saVariationOne("clean up")}`, `${saVariationTwo("clean up")}`, `${saVariationThree("clean up")}`]},
+        {o: 5, id: "cleanUp",          name: "Clean Up",                result: randomVariation(name, gender, "clean up")},
         {id: "safetyDirections", name: "Safety Directions",             result: [`${saVariationOne("safety directions")}`, `${saVariationTwo("safety directions")}`, `${saVariationThree("safety directions")}`]},
         {id: "sorting",          name: "Sorting",                       result: [`${saVariationOne("sorting")}`, `${saVariationTwo("sorting")}`, `${saVariationThree("sorting")}`]},
         {id: "stringingBeads",   name: "Stringing Beads",               result: [`${saVariationOne("stringing beads")}`, `${saVariationTwo("stringing beads")}`, `${saVariationThree("stringing beads")}`]},
@@ -72,7 +83,7 @@ function LibraryP(userInput, programId, name, gender){
         {id: "np",               name: "Non-Preferred Activites",       result: [`non-preferred activites`, `${saVariationTwo("non-preferred activites")}`, `${saVariationThree("non-preferred activities")}`]},
         
         //Purpose of Session
-        {o: "disabled", id: "purpose", name: "Purpose of Session", result: [`The purpose of today's session was to ${userInput}.`]},
+        {o: "disabled", id: "purpose", name: "Purpose of Session", result: []},
         //Opening Statement
         {id: "guests", name: "People Present During Session", result: [`${userInput} were present throughout session.`]},
     
@@ -87,9 +98,6 @@ function LibraryP(userInput, programId, name, gender){
     }
     
 }
-
-
-console.log(name)
 
 /*
 <div id="programList">  append everything below to this div
