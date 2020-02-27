@@ -5,13 +5,27 @@ let name = document.querySelector("#username > .userInput > .extractThisInput");
 let gender = document.querySelector("#gender > .userInput > .extractThisInput");//store gender for Library templates
 let userInput = "";
 
+//Variations
+function saVariationOne(programN) {
+    return (`${(toPercent(userInput))} of ${programN} components were scored as indepedent during this observation.`)
+}
+
+function saVariationTwo(programN){
+    return (`${name} independently completed ${userInput} ${programN} components.`)
+}
+
+function saVariationThree(programN){
+    return (`${gender} completed ${userInput} ${programN} trials independently during session.`)
+}
+
+
 //This function returns an array of sentences of a matched id
 //libraryOfPrograms has to have an id and at least one string in result; name is optional
 function LibraryP(userInput, programId, name, gender){
-    //handels a special case with "demeanor"
+    //handles a special case with "demeanor"
     if(programId == "demeanor"){
         const demenorCase = {
-            smiling: [`${gender} was smiling`, `${gender} came in happy today`],
+            smiling: [`The learner presented with a smile.`, `${name} greeted the therapist with a smile and enthusiastic greeting.`],
             frowning: [`${gender} was frowning`],
             crying: [`${gender} was crying`, `${gender} came in upset today`],
         }
@@ -21,47 +35,47 @@ function LibraryP(userInput, programId, name, gender){
         //RBT PROGRAMS
         // edit key "o" numerically to change order
         // type "exclude" to temporarily disable
-        {o: 4, id: "puzzle",           name: "Puzzle",                        result: [`${(toPercent(userInput))} puzzle First variation and then ${gender} wrote `, `puzzle ${name}Second ${userInput} variation`, `puzzle third variation ${userInput}`]},
-        {o: 2, id: "activitySchedule", name: "Activity Schedule",             result: [`${userInput} schedule First variation`, `schedule Second ${userInput}variation`, `schedule third variation ${userInput}`]}, 
-        {o: 1, id: "walking",          name: "Walking",                       result: [`${userInput} walking First variation`, `walking Second ${userInput}variation`, `walking third variation ${userInput}`]},
-        {o: 3, id: "waiting",          name: "Waiting",                       result: [`${userInput} waiting First variation`, `waiting Second ${userInput}variation`, `waiting third variation ${userInput}`]},
-        {o: 5, id: "cleanUp",          name: "Clean Up",                      result: [`${userInput} cleanUp First variation`, `cleanUp Second ${userInput}variation`, `cleanUp third variation ${userInput}`]},
-        {id: "safetyDirections", name: "Clean Up",                      result: [`${userInput} safetyDirections First variation`, `safetyDirections Second ${userInput}variation`, `safetyDirections third variation ${userInput}`]},
-        {id: "sorting",          name: "Sorting",                       result: [`${userInput} sorting First variation`, `sorting Second ${userInput}variation`, `sorting third variation ${userInput}`]},
-        {id: "stringingBeads",   name: "Stringing Beads",               result: [`${userInput} stringingBeads First variation`, `stringingBeads Second ${userInput}variation`, `stringingBeads third variation ${userInput}`]},
-        {id: "safetyDirections", name: "Safety Directions",             result: [`${userInput} safetyDirections First variation`, `safetyDirections Second ${userInput}variation`, `safetyDirections third variation ${userInput}`]},
-        {id: "vocalImitation",   name: "Vocal Imitation",               result: [`${userInput} vocalImitation First variation`, `vocalImitation Second ${userInput}variation`, `vocalImitation third variation ${userInput}`]},
-        {id: "gmi",              name: "GMI",                           result: [`${userInput} gmi First variation`, `gmi Second ${userInput}variation`, `gmi third variation ${userInput}`]},
-        {id: "fmi",              name: "FMI",                           result: [`${userInput} fmi First variation`, `fmi Second ${userInput}variation`, `fmi third variation ${userInput}`]},
-        {id: "imWithObjects",    name: "IM W/ Objects",                 result: [`${userInput} imWithObjects First variation`, `imWithObjects Second ${userInput}variation`, `imWithObjects third variation ${userInput}`]},
-        {id: "attendanceSong",   name: "Attendance Song",               result: [`${userInput} attendanceSong First variation`, `attendanceSong Second ${userInput}variation`, `attendanceSong third variation ${userInput}`]},
-        {id: "napPrep",          name: "Nap Prep",                      result: [`${userInput} napPrep First variation`, `napPrep Second ${userInput}variation`, `napPrep third variation ${userInput}`]},
-        {id: "selfRegulation",   name: "Self-Regulation",               result: [`${userInput} selfRegulation First variation`, `selfRegulation Second ${userInput}variation`, `selfRegulation third variation ${userInput}`]},
-        {id: "toothbrushing",    name: "Toothbrushing",                 result: [`${userInput} toothbrushing First variation`, `toothbrushing Second ${userInput}variation`, `toothbrushing third variation ${userInput}`]},
-        {id: "reading",          name: "Reading",                       result: [`${userInput} reading First variation`, `reading Second ${userInput}variation`, `reading third variation ${userInput}`]},
-        {id: "art",              name: "Art",                           result: [`${userInput} art First variation`, `walking Second ${userInput}variation`, `art third variation ${userInput}`]},
-        {id: "communicatesNo",   name: "Communicates No",               result: [`${userInput} communicatesNo First variation`, `communicatesNo Second ${userInput}variation`, `communicatesNo third variation ${userInput}`]},
-        {id: "greetings",        name: "Responds to Greetings",         result: [`${userInput} greetings First variation`, `greetings Second ${userInput}variation`, `greetings third variation ${userInput}`]},
-        {id: "respondsToName",   name: "Responds to Name",              result: [`${userInput} respondsToName First variation`, `respondsToName Second ${userInput}variation`, `respondsToName third variation ${userInput}`]},
-        {id: "manding",          name: "Manding",                       result: [`${userInput} manding First variation`, `manding Second ${userInput}variation`, `manding third variation ${userInput}`]},
-        {id: "deniedAccess",     name: "Accepts Denied Access",         result: [`${userInput} deniedAccess First variation`, `deniedAccess Second ${userInput}variation`, `deniedAccess third variation ${userInput}`]},
-        {id: "gameplay",         name: "Gameplay",                      result: [`${userInput} gameplay First variation`, `gameplay Second ${userInput}variation`, `gameplay third variation ${userInput}`]},
-        {id: "timer",            name: "Timer",                         result: [`${userInput} timer First variation`, `timer Second ${userInput}variation`, `timer third variation ${userInput}`]},
-        {id: "jaInitiation",     name: "Join Attention: Init",          result: [`${userInput} jaInitiation First variation`, `jaInitiation Second ${userInput}variation`, `jaInitiation third variation ${userInput}`]},
-        {id: "relinquishing",    name: "Relinquishing",                 result: [`${userInput} relinquishing First variation`, `relinquishing Second ${userInput}variation`, `relinquishing third variation ${userInput}`]},
-        {id: "pecs",             name: "PECS",                          result: [`${userInput} pecs First variation`, `pecs Second ${userInput}variation`, `pecs third variation ${userInput}`]},
-        {id: "songGestures",     name: "Gestures During Song",          result: [`${userInput} songGestures First variation`, `songGestures Second ${userInput}variation`, `songGestures third variation ${userInput}`]},
-        {id: "chooseBtwnTwo",    name: "Choose Btwn Two",               result: [`${userInput} chooseBtwnTwo First variation`, `chooseBtwnTwo Second ${userInput}variation`, `chooseBtwnTwo third variation ${userInput}`]},
-        {id: "mandsMissing",     name: "Mands for Missing",             result: [`${userInput} mandsMissing First variation`, `mandsMissing Second ${userInput}variation`, `mandsMissing third variation ${userInput}`]},
-        {id: "peerRequests",     name: "Spont. Resp. to Peer Requests", result: [`${userInput} peerRequests First variation`, `peerRequests Second ${userInput}variation`, `peerRequests third variation ${userInput}`]},
-        {id: "smallGroups",      name: "Small Group Activites",         result: [`${userInput} smallGroups First variation`, `smallGroups Second ${userInput}variation`, `smallGroups third variation ${userInput}`]},
-        {id: "interval",         name: "Interval Data",                 result: [`${userInput} interval First variation`, `interval Second ${userInput}variation`, `interval third variation ${userInput}`]},
-        {id: "np",               name: "Non-Preferred Activites",       result: [`${userInput} np First variation`, `np Second ${userInput}variation`, `np third variation ${userInput}`]},
+        {o: 4, id: "puzzle",           name: "Puzzle",                  result: [`${saVariationOne("puzzle")}`, `${saVariationTwo("puzzle")}`, `${saVariationThree("puzzle")}`]},
+        {o: 2, id: "activitySchedule", name: "Activity Schedule",       result: [`${saVariationOne("activity schedule")}`, `${saVariationTwo("activity schedule")}`, `${saVariationThree("activity schedule")}`]}, 
+        {o: 1, id: "walking",          name: "Walking",                 result: [`${saVariationOne("walking")}`, `${saVariationTwo("walking")}`, `${saVariationThree("walking")}`]},
+        {o: 3, id: "waiting",          name: "Waiting",                 result: [`${saVariationOne("waiting")}`, `${saVariationTwo("waiting")}`, `${saVariationThree("waiting")}`]},
+        {o: 5, id: "cleanUp",          name: "Clean Up",                result: [`${saVariationOne("clean up")}`, `${saVariationTwo("clean up")}`, `${saVariationThree("clean up")}`]},
+        {id: "safetyDirections", name: "Safety Directions",             result: [`${saVariationOne("safety directions")}`, `${saVariationTwo("safety directions")}`, `${saVariationThree("safety directions")}`]},
+        {id: "sorting",          name: "Sorting",                       result: [`${saVariationOne("sorting")}`, `${saVariationTwo("sorting")}`, `${saVariationThree("sorting")}`]},
+        {id: "stringingBeads",   name: "Stringing Beads",               result: [`${saVariationOne("stringing beads")}`, `${saVariationTwo("stringing beads")}`, `${saVariationThree("stringing beads")}`]},
+        {id: "vocalImitation",   name: "Vocal Imitation",               result: [`${saVariationOne("vocal imitation")}`, `${saVariationTwo("vocal imitation")}`, `${saVariationThree("vocal imitation")}`]},
+        {id: "gmi",              name: "GMI",                           result: [`${saVariationOne("GMI")}`, `${saVariationTwo("GMI")}`, `${saVariationThree("GMI")}`]},
+        {id: "fmi",              name: "FMI",                           result: [`${saVariationOne("FMI")}`, `${saVariationTwo("FMI")}`, `${saVariationThree("FMI")}`]},
+        {id: "imWithObjects",    name: "IM W/ Objects",                 result: [`${saVariationOne("imitation with objects")}`, `${saVariationTwo("imitation with objects")}`, `${saVariationThree("imitation with objects")}`]},
+        {id: "attendanceSong",   name: "Attendance Song",               result: [`${saVariationOne("attendance song")}`, `${saVariationTwo("attendance song")}`, `${saVariationThree("attendance song")}`]},
+        {id: "napPrep",          name: "Nap Prep",                      result: [`${saVariationOne("nap prep")}`, `${saVariationTwo("nap prep")}`, `${saVariationThree("nap prep")}`]},
+        {id: "selfRegulation",   name: "Self-Regulation",               result: [`${saVariationOne("self-regulation")}`, `${saVariationTwo("self-regulation")}`, ``]},
+        {id: "toothbrushing",    name: "Toothbrushing",                 result: [`${saVariationOne("toothbrushing")}`, `${saVariationTwo("toothbrushing")}`, `${saVariationThree("toothbrushing")}`]},
+        {id: "reading",          name: "Reading",                       result: [`${saVariationOne("reading")}`, `${saVariationTwo("reading")}`, `${saVariationThree("reading")}`]},
+        {id: "art",              name: "Art",                           result: [`${saVariationOne("art skills")}`, `${saVariationTwo("art skills")}`, `${saVariationThree("art skills")}`]},
+        {id: "communicatesNo",   name: "Communicates No",               result: [`${saVariationOne("communicates no")}`, `${saVariationTwo("communicates no")}`, `${saVariationThree("communicates no")}`]},
+        {id: "greetings",        name: "Responds to Greetings",         result: [`${saVariationOne("responds to greetings")}`, `${saVariationTwo("responds to greetings")}`, `${saVariationThree("responds to greetings")}`]},
+        {id: "respondsToName",   name: "Responds to Name",              result: [`${saVariationOne("responds to name")}`, `${saVariationTwo("responds to name")}`, `${saVariationThree("responds to name")}`]},
+        {id: "manding",          name: "Manding",                       result: [`${saVariationOne("manding")}`, `${saVariationTwo("manding")}`, `manding third variation ${userInput}`]},
+        {id: "deniedAccess",     name: "Accepts Denied Access",         result: [`${saVariationOne("accepts denied access")}`, `${saVariationTwo("accepts denied access")}`, `deniedAccess third variation ${userInput}`]},
+        {id: "gameplay",         name: "Gameplay",                      result: [`${saVariationOne("gameplay")}`, `${saVariationTwo("gameplay")}`, `${saVariationThree("gameplay")}`]},
+        {id: "timer",            name: "Timer",                         result: [`${saVariationOne("responding to timer")}`, `${saVariationTwo("responding to timer")}`, `${saVariationThree("responding to timer")}`]},
+        {id: "jaInitiation",     name: "Join Attention: Init",          result: [`${saVariationOne("joint attention: initiation")}`, `${saVariationTwo("joint attentio: initiation")}`, `${saVariationThree("joint attention: initiation")}`]},
+        {id: "relinquishing",    name: "Relinquishing",                 result: [`${saVariationOne("relinquishing")}`, `${saVariationTwo("relinquishing")}`, `${saVariationThree("relinquishing")}`]},
+        {id: "pecs",             name: "PECS",                          result: [`${saVariationOne("PECS")}`, `${saVariationTwo("PECS")}`, `${saVariationThree("PECS")}`]},
+        {id: "songGestures",     name: "Gestures During Song",          result: [`${saVariationOne("gestures during song")}`, `${saVariationTwo("gestures during song")}`, `${saVariationThree("gestures during song")}`]},
+        {id: "chooseBtwnTwo",    name: "Choose Btwn Two",               result: [`${saVariationOne("choose between two items")}`, `${saVariationTwo("choose between two items")}`, `${saVariationThree("choose between to items")}`]},
+        {id: "mandsMissing",     name: "Mands for Missing",             result: [`${saVariationOne("mands for missing objects")}`, `${saVariationTwo("mands for missing objects")}`, `${saVariationThree("mands for missing objects")}`]},
+        {id: "peerRequests",     name: "Spont. Resp. to Peer Requests", result: [`${saVariationOne("spontaneous response to peer requests")}`, `${saVariationTwo("spontaneous response to peer requests")}`, `${saVariationThree("spontaneous response tp peer requests")}`]},
+        {id: "smallGroups",      name: "Small Group Activites",         result: [`${saVariationOne("small group activites")}`, `${saVariationTwo("small group activites")}`, `${saVariationThree("small group activities")}`]},
+        {id: "interval",         name: "Interval Data",                 result: [`interval data`, `${saVariationTwo("interval data")}`, `${saVariationThree("interval data")}`]},
+        {id: "np",               name: "Non-Preferred Activites",       result: [`non-preferred activites`, `${saVariationTwo("non-preferred activites")}`, `${saVariationThree("non-preferred activities")}`]},
         
         //Purpose of Session
-        {o: "disabled", id: "purpose", name: "Purpose of Session", result: [`Purpose of the session is ${userInput}`]},
+        {o: "disabled", id: "purpose", name: "Purpose of Session", result: [`The purpose of today's session was to ${userInput}.`]},
         //Opening Statement
-        {id: "guests", name: "People Present During Session", result: [`People Present During Session were: ${userInput}`]},
+        {id: "guests", name: "People Present During Session", result: [`${userInput} were present throughout session.`]},
+    
     ];
     if(isGenerate){
         return libraryOfPrograms;//returns an array formatted for constructing html
@@ -73,6 +87,9 @@ function LibraryP(userInput, programId, name, gender){
     }
     
 }
+
+
+console.log(name)
 
 /*
 <div id="programList">  append everything below to this div
