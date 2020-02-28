@@ -4,64 +4,110 @@ const generateButton = document.querySelector("#generateNote");//generate note b
 let name = document.querySelector("#username > .userInput > .extractThisInput"); // store name for Library templates
 let gender = document.querySelector("#gender > .userInput > .extractThisInput");//store gender for Library templates
 let userInput = "";
+//let upperGender = (gender.value.charAt(0).toUpperCase() + gender);
+
+//Variations
+function saVariationOne(programN) {
+    return (`${(toPercent(userInput))} of ${programN} components were scored as independent during this observation.`)
+}
+
+function saVariationTwo(name, programN){
+    return (`${name} independently completed ${userInput} ${programN} components.`)
+}
+
+function saVariationThree(gender, programN){
+    return (`${gender} completed ${userInput} ${programN} trials independently during session.`)
+}
+
+function randomVariation(name, gender, programName){
+    return [`${(toPercent(userInput))} of ${programName} components were scored as independent during this observation.`,
+            `${(toPercent(userInput))} of ${programName} trials were scored positively.`,
+            `${(toPercent(userInput))} of ${programName} trials were recorded as positive.`,
+            `${userInput} of ${programName} components were scored as independent during this observation.`,
+            `${name} independently completed ${userInput} ${programName} components.`,
+            `${gender} completed ${userInput} ${programName} trials independently during session.`,
+            `${gender} completed ${userInput} ${programName} components with no additional prompting.`,
+            `${userInput} ${programName} trials were scored positively.`,
+            `${userInput} ${programName} components were recorded as independent.`,
+            `${userInput} ${programName} components were scored as without prompting.`,
+            `${name} independently completed ${(toPercent(userInput))} of ${programName} opportunities today.`,
+            `${gender} independently completed ${(toPercent(userInput))} of ${programName} opportunities today.`,
+            `${(toPercent(userInput))} of the ${programName} trials were scored positively.`,
+            `${(toPercent(userInput))} of the ${programName} components were scored positively.`,
+            `${(toPercent(userInput))} of the ${programName} opportunities were independently completed during session.`,
+            `During ${programName} the learner independently completed an average of ${(toPercent(userInput))} of the components.`,
+            `During ${programName} ${name} independently completed an average of ${(toPercent(userInput))} of the components.`,
+            `During ${programName} ${gender} independently completed an average of ${(toPercent(userInput))} of the components.`,
+            `${userInput} ${programName} trials were completed without additional prompting.`,
+            `Throughout the session, ${(toPercent(userInput))} of ${programName} trials were scored in the absence of problem behavior.`
+        ];
+}
 
 //This function returns an array of sentences of a matched id
 //libraryOfPrograms has to have an id and at least one string in result; name is optional
 function LibraryP(userInput, programId, name, gender){
-    //handels a special case with "demeanor"
-    if(programId == "demeanor"){
-        const demenorCase = {
-            smiling: [`${gender} was smiling`, `${gender} came in happy today`],
+    //handles a special case with "demeanor"
+    if(programId == "demeanor" || programId == "purpose"){
+        const specialCase = {
+            //Demeanor Case
+            smiling: [`The learner presented with a smile.`, `${name} greeted the therapist with a smile and enthusiastic greeting.`],
             frowning: [`${gender} was frowning`],
             crying: [`${gender} was crying`, `${gender} came in upset today`],
+            //Purpose of the Session Case
+            direct: [`The purpose of today's session was to provide direct therapy and implement skill acquisition and behavior decrease targets.`],
+            pairing: [`pairing fill in`],
+            generalization: [`generalization fill in`],
+            
         }
-        return demenorCase[`${userInput}`];
+        return specialCase[`${userInput}`];
     }
     libraryOfPrograms = [ 
         //RBT PROGRAMS
         // edit key "o" numerically to change order
         // type "exclude" to temporarily disable
-        {o: 4, id: "puzzle",           name: "Puzzle",                        result: [`${(toPercent(userInput))} puzzle First variation and then ${gender} wrote `, `puzzle ${name}Second ${userInput} variation`, `puzzle third variation ${userInput}`]},
-        {o: 2, id: "activitySchedule", name: "Activity Schedule",             result: [`${userInput} schedule First variation`, `schedule Second ${userInput}variation`, `schedule third variation ${userInput}`]}, 
-        {o: 1, id: "walking",          name: "Walking",                       result: [`${userInput} walking First variation`, `walking Second ${userInput}variation`, `walking third variation ${userInput}`]},
-        {o: 3, id: "waiting",          name: "Waiting",                       result: [`${userInput} waiting First variation`, `waiting Second ${userInput}variation`, `waiting third variation ${userInput}`]},
-        {o: 5, id: "cleanUp",          name: "Clean Up",                      result: [`${userInput} cleanUp First variation`, `cleanUp Second ${userInput}variation`, `cleanUp third variation ${userInput}`]},
-        {id: "safetyDirections", name: "Clean Up",                      result: [`${userInput} safetyDirections First variation`, `safetyDirections Second ${userInput}variation`, `safetyDirections third variation ${userInput}`]},
-        {id: "sorting",          name: "Sorting",                       result: [`${userInput} sorting First variation`, `sorting Second ${userInput}variation`, `sorting third variation ${userInput}`]},
-        {id: "stringingBeads",   name: "Stringing Beads",               result: [`${userInput} stringingBeads First variation`, `stringingBeads Second ${userInput}variation`, `stringingBeads third variation ${userInput}`]},
-        {id: "safetyDirections", name: "Safety Directions",             result: [`${userInput} safetyDirections First variation`, `safetyDirections Second ${userInput}variation`, `safetyDirections third variation ${userInput}`]},
-        {id: "vocalImitation",   name: "Vocal Imitation",               result: [`${userInput} vocalImitation First variation`, `vocalImitation Second ${userInput}variation`, `vocalImitation third variation ${userInput}`]},
-        {id: "gmi",              name: "GMI",                           result: [`${userInput} gmi First variation`, `gmi Second ${userInput}variation`, `gmi third variation ${userInput}`]},
-        {id: "fmi",              name: "FMI",                           result: [`${userInput} fmi First variation`, `fmi Second ${userInput}variation`, `fmi third variation ${userInput}`]},
-        {id: "imWithObjects",    name: "IM W/ Objects",                 result: [`${userInput} imWithObjects First variation`, `imWithObjects Second ${userInput}variation`, `imWithObjects third variation ${userInput}`]},
-        {id: "attendanceSong",   name: "Attendance Song",               result: [`${userInput} attendanceSong First variation`, `attendanceSong Second ${userInput}variation`, `attendanceSong third variation ${userInput}`]},
-        {id: "napPrep",          name: "Nap Prep",                      result: [`${userInput} napPrep First variation`, `napPrep Second ${userInput}variation`, `napPrep third variation ${userInput}`]},
-        {id: "selfRegulation",   name: "Self-Regulation",               result: [`${userInput} selfRegulation First variation`, `selfRegulation Second ${userInput}variation`, `selfRegulation third variation ${userInput}`]},
-        {id: "toothbrushing",    name: "Toothbrushing",                 result: [`${userInput} toothbrushing First variation`, `toothbrushing Second ${userInput}variation`, `toothbrushing third variation ${userInput}`]},
-        {id: "reading",          name: "Reading",                       result: [`${userInput} reading First variation`, `reading Second ${userInput}variation`, `reading third variation ${userInput}`]},
-        {id: "art",              name: "Art",                           result: [`${userInput} art First variation`, `walking Second ${userInput}variation`, `art third variation ${userInput}`]},
-        {id: "communicatesNo",   name: "Communicates No",               result: [`${userInput} communicatesNo First variation`, `communicatesNo Second ${userInput}variation`, `communicatesNo third variation ${userInput}`]},
-        {id: "greetings",        name: "Responds to Greetings",         result: [`${userInput} greetings First variation`, `greetings Second ${userInput}variation`, `greetings third variation ${userInput}`]},
-        {id: "respondsToName",   name: "Responds to Name",              result: [`${userInput} respondsToName First variation`, `respondsToName Second ${userInput}variation`, `respondsToName third variation ${userInput}`]},
-        {id: "manding",          name: "Manding",                       result: [`${userInput} manding First variation`, `manding Second ${userInput}variation`, `manding third variation ${userInput}`]},
-        {id: "deniedAccess",     name: "Accepts Denied Access",         result: [`${userInput} deniedAccess First variation`, `deniedAccess Second ${userInput}variation`, `deniedAccess third variation ${userInput}`]},
-        {id: "gameplay",         name: "Gameplay",                      result: [`${userInput} gameplay First variation`, `gameplay Second ${userInput}variation`, `gameplay third variation ${userInput}`]},
-        {id: "timer",            name: "Timer",                         result: [`${userInput} timer First variation`, `timer Second ${userInput}variation`, `timer third variation ${userInput}`]},
-        {id: "jaInitiation",     name: "Join Attention: Init",          result: [`${userInput} jaInitiation First variation`, `jaInitiation Second ${userInput}variation`, `jaInitiation third variation ${userInput}`]},
-        {id: "relinquishing",    name: "Relinquishing",                 result: [`${userInput} relinquishing First variation`, `relinquishing Second ${userInput}variation`, `relinquishing third variation ${userInput}`]},
-        {id: "pecs",             name: "PECS",                          result: [`${userInput} pecs First variation`, `pecs Second ${userInput}variation`, `pecs third variation ${userInput}`]},
-        {id: "songGestures",     name: "Gestures During Song",          result: [`${userInput} songGestures First variation`, `songGestures Second ${userInput}variation`, `songGestures third variation ${userInput}`]},
-        {id: "chooseBtwnTwo",    name: "Choose Btwn Two",               result: [`${userInput} chooseBtwnTwo First variation`, `chooseBtwnTwo Second ${userInput}variation`, `chooseBtwnTwo third variation ${userInput}`]},
-        {id: "mandsMissing",     name: "Mands for Missing",             result: [`${userInput} mandsMissing First variation`, `mandsMissing Second ${userInput}variation`, `mandsMissing third variation ${userInput}`]},
-        {id: "peerRequests",     name: "Spont. Resp. to Peer Requests", result: [`${userInput} peerRequests First variation`, `peerRequests Second ${userInput}variation`, `peerRequests third variation ${userInput}`]},
-        {id: "smallGroups",      name: "Small Group Activites",         result: [`${userInput} smallGroups First variation`, `smallGroups Second ${userInput}variation`, `smallGroups third variation ${userInput}`]},
-        {id: "interval",         name: "Interval Data",                 result: [`${userInput} interval First variation`, `interval Second ${userInput}variation`, `interval third variation ${userInput}`]},
-        {id: "np",               name: "Non-Preferred Activites",       result: [`${userInput} np First variation`, `np Second ${userInput}variation`, `np third variation ${userInput}`]},
+        {o: 4, id: "puzzle",           name: "Puzzle",                  result: randomVariation(name, gender, "puzzle")},
+        {o: 2, id: "activitySchedule", name: "Activity Schedule",       result: randomVariation(name, gender, "activity schedule")},
+        {o: 1, id: "walking",          name: "Walking",                 result: randomVariation(name, gender, "walking")},
+        {o: 3, id: "waiting",          name: "Waiting",                 result: randomVariation(name, gender, "waiting")},
+        {o: 5, id: "cleanUp",          name: "Clean Up",                result: randomVariation(name, gender, "clean up")},
+        {id: "safetyDirections", name: "Safety Directions",             result: randomVariation(name, gender, "safety directions")},
+        {id: "sorting",          name: "Sorting",                       result: randomVariation(name, gender, "sorting")},
+        {id: "stringingBeads",   name: "Stringing Beads",               result: randomVariation(name, gender, "stringing beads")},
+        {id: "vocalImitation",   name: "Vocal Imitation",               result: randomVariation(name, gender, "vocal imitation")},
+        {id: "gmi",              name: "GMI",                           result: randomVariation(name, gender, "GMI")},
+        {id: "fmi",              name: "FMI",                           result: randomVariation(name, gender, "FMI")},
+        {id: "imWithObjects",    name: "IM W/ Objects",                 result: randomVariation(name, gender, "imitation with objects")},
+        {id: "attendanceSong",   name: "Attendance Song",               result: randomVariation(name, gender, "attendance song")},
+        {id: "napPrep",          name: "Nap Prep",                      result: randomVariation(name, gender, "nap prep")},
+        {id: "selfRegulation",   name: "Self-Regulation",               result: randomVariation(name, gender, "self-regulation")},
+        {id: "toothbrushing",    name: "Toothbrushing",                 result: randomVariation(name, gender, "toothbrushing")},
+        {id: "reading",          name: "Reading",                       result: randomVariation(name, gender, "reading")},
+        {id: "art",              name: "Art",                           result: randomVariation(name, gender, "art skills")},
+        {id: "communicatesNo",   name: "Communicates No",               result: randomVariation(name, gender, "communicates no")},
+        {id: "greetings",        name: "Responds to Greetings",         result: randomVariation(name, gender, "responds to greetings")},
+        {id: "respondsToName",   name: "Responds to Name",              result: randomVariation(name, gender, "responds to name")},
+        {id: "manding",          name: "Manding",                       result: randomVariation(name, gender, "manding")},
+        {id: "deniedAccess",     name: "Accepts Denied Access",         result: randomVariation(name, gender, "accepts denied access")},
+        {id: "gameplay",         name: "Gameplay",                      result: randomVariation(name, gender, "gameplay")},
+        {id: "timer",            name: "Timer",                         result: randomVariation(name, gender, "response to timer")},
+        {id: "jaInitiation",     name: "Join Attention: Init",          result: randomVariation(name, gender, "joint attention: initialization")},
+        {id: "relinquishing",    name: "Relinquishing",                 result: randomVariation(name, gender, "relinquishing")},
+        {id: "pecs",             name: "PECS",                          result: randomVariation(name, gender, "PECS")},
+        {id: "songGestures",     name: "Gestures During Song",          result: randomVariation(name, gender, "gestures during song")},
+        {id: "chooseBtwnTwo",    name: "Choose Btwn Two",               result: randomVariation(name, gender, "choose between two items")},
+        {id: "mandsMissing",     name: "Mands for Missing",             result: randomVariation(name, gender, "mands for missing objects")},
+        {id: "peerRequests",     name: "Spont. Resp. to Peer Requests", result: randomVariation(name, gender, "spontaneous response to peer requests")},
+        {id: "smallGroups",      name: "Small Group Activites",         result: randomVariation(name, gender, "small group activities")},
+        {id: "interval",         name: "Interval Data",                 result: randomVariation(name, gender, "interval data")},
+        {id: "np",               name: "Non-Preferred Activites",       result: randomVariation(name, gender, "non-preferred activites")},
+        {id: "p",                name: "Preferred Activites",           result: randomVariation(name, gender, "preferred activites")},
+        {id: "modelBuilding",    name: "Model Building",                result: randomVariation(name, gender, "model building")},
         
         //Purpose of Session
-        {o: "disabled", id: "purpose", name: "Purpose of Session", result: [`Purpose of the session is ${userInput}`]},
+        {o: "disabled", id: "purpose", name: "Purpose of Session", result: []},
         //Opening Statement
-        {id: "guests", name: "People Present During Session", result: [`People Present During Session were: ${userInput}`]},
+        {id: "guests", name: "People Present During Session", result: [`${userInput} were present throughout session.`]},
+    
     ];
     if(isGenerate){
         return libraryOfPrograms;//returns an array formatted for constructing html
@@ -69,7 +115,7 @@ function LibraryP(userInput, programId, name, gender){
     else{
         let i = 0;
         while (programId !== libraryOfPrograms[i]["id"]) { i++; } //finds a match
-        return libraryOfPrograms[i]["result"];
+        return libraryOfPrograms[i]["result"];//returns an array formatted for generateNote function
     }
     
 }
@@ -140,7 +186,6 @@ generateHtml();
 //loops through libraryOfPrograms and only outputs selected programs
 function generateNote(usrname, usrgender) {
     let programList = document.querySelectorAll(".programItem");
-    console.log(programList)
     isGenerate = false;
     let generatedNote = ""; // resets a note
     let programId; //temporarily store id value
