@@ -40,8 +40,6 @@ function randomVariation(name, gender, programName){
             `During ${programName} ${gender} independently completed an average of ${(toPercent(userInput))} of the components.`,
             `${userInput} ${programName} trials were completed without additional prompting.`,
             `Throughout the session, ${(toPercent(userInput))} of ${programName} trials were scored in the absence of problem behavior.`
-
-
         ];
 }
 
@@ -117,7 +115,7 @@ function LibraryP(userInput, programId, name, gender){
     else{
         let i = 0;
         while (programId !== libraryOfPrograms[i]["id"]) { i++; } //finds a match
-        return libraryOfPrograms[i]["result"];
+        return libraryOfPrograms[i]["result"];//returns an array formatted for generateNote function
     }
     
 }
@@ -188,7 +186,6 @@ generateHtml();
 //loops through libraryOfPrograms and only outputs selected programs
 function generateNote(usrname, usrgender) {
     let programList = document.querySelectorAll(".programItem");
-    console.log(programList)
     isGenerate = false;
     let generatedNote = ""; // resets a note
     let programId; //temporarily store id value
