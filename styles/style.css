@@ -1,3 +1,15 @@
+#programList{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.category{
+    grid-column: 1 / span 4;
+    justify-self: center;
+}
+
+
+
 #programList > div > div{
     display: inline-block;
 }
@@ -18,7 +30,8 @@
 .category {
     font-size: 50px;
 }
-#textAreaResult > textarea{
+#textAreaResult, #textAreaResult > textarea{
     height: 200px;
     width: 600px;
+    margin: 0 auto;
 }
