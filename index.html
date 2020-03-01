@@ -34,20 +34,21 @@
     <div class="rbtNote">
         <div id="programList">
             <!--Opening Statement-->
-            <h1 class = "category">Opener</h1>
+            <h1 class = "category">Purpose of Session</h1>
             <div class = "openerItem programItem" id = "purpose">
                 <div class="selected">
                     <label><input id="input"type="checkbox">Purpose</label>
                 </div>
                 <div class="userInput">
                     <select class = "extractThisInput">
-                        <option value="" selected disabled>--Select--</option>
+                        <option value="" selected>--Select--</option>
                         <option value="direct">Provide Direct Therapy</option>
                         <option value="pairing">Pairing</option>
                         <option value="generalization">Probe Generalization</option>
                     </select>
                 </div>       
             </div>
+            <h1 class = "category">Opener</h1>
             <div class = "openerItem" value = "" id = "username">
                 <div class="selected">
                     <label><input id="input"type="checkbox" >Learner's First Name:</label>
@@ -62,8 +63,8 @@
                 </div>
                 <div class="userInput">
                     <select class = "extractThisInput">
-                        <option value="novalue"disabled>--Select--</option>
-                        <option value="he" selected>Boy</option>
+                        <option value="novalue"selected disabled>--Select--</option>
+                        <option value="he">Boy</option>
                         <option value="she">Girl</option>
                     </select>
                 </div>       
@@ -85,13 +86,15 @@
                 <div class="selected">
                     <label><input id="input"type="checkbox">People Present During Session</label>
                 </div>
-                
+                <div class="userInput">
+                    <input class = "extractThisInput" type="text"> 
+                </div>
             </div>
-            <div class="userInput">
-                <input class = "extractThisInput" type="text"> 
+            <div id="textAreaResult">
+                <textarea value="insert result here"></textarea>
             </div>
-            
             <!--Skill Acquisition Section-->
+            <h1 class="category">Skill Acquisition</h1>
             <!-- <div class = " example" id = "example"> this ID has to match with key name is libraryOfPrograms
                 <div class = "selected">
                     <label><input id="input"type="checkbox">Example(temporarily)</label> 
@@ -100,10 +103,6 @@
                     <input class = "extractThisInput" type="text">
                 </div>
             </div> -->
-            
-        </div>
-        <div id="textAreaResult">
-            <textarea value="insert result here"></textarea>
         </div>
         
     </div>
