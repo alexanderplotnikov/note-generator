@@ -39,6 +39,26 @@ function problemVariation(name, gender, problemName) {
         `${gender} engaged in ${userInput} episodes of ${problemName} during session.`,
         `${gender} engaged in ${userInput} episodes of ${problemName}.`,
 
+        //test
+        `${gender} engaged in ${userInput} episodes of ${problemName}.`,
+
+    ]
+}
+
+//`${userInput} were present throughout session.`
+
+
+
+//Closer sentence variations
+function closerVariation(closerName) {
+    return [
+        `${closerName} ${userInput}`,
+    ]
+}
+//People Present During Session
+function peoplePresent(people) {
+    return [
+        `${people}: ${userInput}`,
     ]
 }
 
@@ -123,19 +143,19 @@ function LibraryP(userInput, programId, name, gender){
         {id: "Hdumping",          name: "Dumping",                       result: problemVariation(name, gender, "dumping")},
         {id: "Hdisrobing",        name: "Disrobing",                     result: problemVariation(name, gender, "disrobing")},
         //Closer
-        {id: "Kpretest",           name: "Pretest Run?",                  result: problemVariation(name, gender, "pretest")},
-        {id: "KnewPrograms",       name: "New Programs Run?",             result: problemVariation(name, gender, "new programs")},
-        {id: "KprogramRevisions",  name: "Program Revisions?",            result: problemVariation(name, gender, "program revisions")},
-        {id: "KgeneralizationProbes", name: "Generalization Probes?",     result: problemVariation(name, gender, "generalizationProbes")},
-        {id: "KnewTargets",        name: "New Targets?",                  result: problemVariation(name, gender, "new targets")},
-        {id: "Kmaintenance",       name: "Maintenance?",                  result: problemVariation(name, gender, "maintenance")},
-        {id: "KnewMotivationalSystem", name: "New Motivational System?",  result: problemVariation(name, gender, "new motivational system")},
-        {id: "KcriticalInformation", name: "Any Critical Info?",   result: problemVariation(name, gender, "critical info"), header: "Closer",},
+        {id: "Kpretest",           name: "Pretest Run?",                  result: closerVariation("Pretests Conducted:")},
+        {id: "KnewPrograms",       name: "New Programs Run?",             result: closerVariation("New Programs:")},
+        {id: "KprogramRevisions",  name: "Program Revisions?",            result: closerVariation("Program Revisions:")},
+        {id: "KgeneralizationProbes", name: "Generalization Probes?",     result: closerVariation("Generalization Probes Conducted:")},
+        {id: "KnewTargets",        name: "New Targets?",                  result: closerVariation("New Targets:")},
+        {id: "Kmaintenance",       name: "Maintenance?",                  result: closerVariation("Maintenance Updates:")},
+        {id: "KnewMotivationalSystem", name: "New Motivational System?",  result: closerVariation("New Motivational System:")},
+        {id: "KcriticalInformation", name: "Any Critical Info?",          result: closerVariation("Critical Info:"), header: "Closer",},
 
         //Purpose of Session
-        {o: "disabled", id: "purpose", name: "Purpose of Session", result: []},
+        {o: "disabled", id: "Apurpose", name: "Purpose of Session", result: []},
         //Opening Statement
-        {o: "disabled", id: "guests", name: "People Present During Session", result: [`${userInput} were present throughout session.`]},
+        {o: "disabled", id: "Aguests", name: "People Present During Session", result: peoplePresent("People Present:")},
     
     ];
     if(isGenerate){
