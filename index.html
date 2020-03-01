@@ -35,9 +35,9 @@
         <div id="programList">
             <!--Opening Statement-->
             <h1 class = "category">Opener</h1>
-            <div class = "openerItem programItem" id = "purpose">
+            <div class = "openerItem programItem" id = "Apurpose">
                 <div class="selected">
-                    <label><input id="input"type="checkbox">Purpose</label>
+                    <label><input id="input"type="checkbox" checked>Purpose</label>
                 </div>
                 <div class="userInput">
                     <select class = "extractThisInput">
@@ -50,7 +50,7 @@
             </div>
             <div class = "openerItem" value = "" id = "username">
                 <div class="selected">
-                    <label><input id="input"type="checkbox" >Learner's First Name:</label>
+                    <label>Learner's First Name:</label>
                 </div>
                 <div class="userInput">
                     <input class = "extractThisInput" type="text">            
@@ -58,19 +58,19 @@
             </div>
             <div class = "openerItem" id = "gender">
                 <div class="selected">
-                    <label><input id="input"type="checkbox">Learner's Gender:</label>
+                    <label>Learner's Gender:</label>
                 </div>
                 <div class="userInput">
                     <select class = "extractThisInput">
-                        <option value="novalue"disabled>--Select--</option>
+                        <option value="novalue" disabled>--Select--</option>
                         <option value="he" selected>Boy</option>
                         <option value="she">Girl</option>
                     </select>
                 </div>       
             </div>
-            <div class = "openerItem programItem" id = "demeanor">
+            <div class = "openerItem programItem" id = "Ademeanor">
                 <div class="selected">
-                    <label><input id="input"type="checkbox">Learner's Demeanor:</label>
+                    <label><input id="input"type="checkbox" checked>Learner's Demeanor:</label>
                 </div>
                 <div class="userInput">
                     <select class = "extractThisInput">
@@ -80,7 +80,15 @@
                         <option value="crying">Crying</option>
                     </select>
                 </div>       
-            </div>             
+            </div> 
+            <div class = "openerItem programItem" value = "" id = "Aguests">
+                <div class="selected">
+                    <label>People Present During Session<input id=""type="checkbox" ></label>
+                </div>
+                <div class="userInput">
+                    <input class = "extractThisInput" type="text">            
+                </div>  
+            </div>          
         </div>
         <div id="textAreaResult">
             <textarea value="insert result here"></textarea>

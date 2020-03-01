@@ -63,7 +63,7 @@ function peoplePresent(people) {
 //libraryOfPrograms has to have an id and at least one string in result; name is optional
 function LibraryP(userInput, programId, name, gender){ 
     //handles a special case with "demeanor"
-    if(programId == "demeanor" || programId == "purpose"){
+    if(programId == "Ademeanor" || programId == "Apurpose"){
         const specialCase = {
             //Demeanor Case
             smiling: [`The learner presented with a smile.`, `${name} greeted the therapist with a smile and enthusiastic greeting.`],
@@ -149,8 +149,7 @@ function LibraryP(userInput, programId, name, gender){
         //Purpose of Session
         {o: "disabled", id: "purpose", name: "Purpose of Session", result: []},
         //Opening Statement
-        {id: "Aguests", name: "People Present During Session", result: peoplePresent("People Present:")},
-    
+        {o: "disabled", id: "Aguests", name: "People Present During Session", result: peoplePresent("People Present:")},
     ];
     if(isGenerate){
         return libraryOfPrograms;//returns an array formatted for constructing html
