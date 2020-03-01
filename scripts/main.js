@@ -6,27 +6,28 @@ let gender = document.querySelector("#gender > .userInput > .extractThisInput");
 let userInput = "";
 //Variations
 function randomVariation(name, gender, programName){
-    return [`${(toPercent(userInput))} of ${programName} components were scored as independent during this observation.`,
-            `${(toPercent(userInput))} of ${programName} trials were scored positively.`,
-            `${(toPercent(userInput))} of ${programName} trials were recorded as positive.`,
-            `${userInput} of ${programName} components were scored as independent during this observation.`,
-            `${name} independently completed ${userInput} ${programName} components.`,
-            `${gender} completed ${userInput} ${programName} trials independently during session.`,
-            `${gender} completed ${userInput} ${programName} components with no additional prompting.`,
-            `${userInput} ${programName} trials were scored positively.`,
-            `${userInput} ${programName} components were recorded as independent.`,
-            `${userInput} ${programName} components were scored as without prompting.`,
-            `${name} independently completed ${(toPercent(userInput))} of ${programName} opportunities today.`,
-            `${gender} independently completed ${(toPercent(userInput))} of ${programName} opportunities today.`,
-            `${(toPercent(userInput))} of the ${programName} trials were scored positively.`,
-            `${(toPercent(userInput))} of the ${programName} components were scored positively.`,
-            `${(toPercent(userInput))} of the ${programName} opportunities were independently completed during session.`,
-            `During ${programName} the learner independently completed an average of ${(toPercent(userInput))} of the components.`,
-            `During ${programName} ${name} independently completed an average of ${(toPercent(userInput))} of the components.`,
-            `During ${programName} ${gender} independently completed an average of ${(toPercent(userInput))} of the components.`,
-            `${userInput} ${programName} trials were completed without additional prompting.`,
-            `Throughout the session, ${(toPercent(userInput))} of ${programName} trials were scored in the absence of problem behavior.`
-        ];
+    return [
+        `${(toPercent(userInput))} of ${programName} components were scored as independent during this observation.`,
+        `${(toPercent(userInput))} of ${programName} trials were scored positively.`,
+        `${(toPercent(userInput))} of ${programName} trials were recorded as positive.`,
+        `${userInput} of ${programName} components were scored as independent during this observation.`,
+        `${name} independently completed ${userInput} ${programName} components.`,
+        `${gender} completed ${userInput} ${programName} trials independently during session.`,
+        `${gender} completed ${userInput} ${programName} components with no additional prompting.`,
+        `${userInput} ${programName} trials were scored positively.`,
+        `${userInput} ${programName} components were recorded as independent.`,
+        `${userInput} ${programName} components were scored as without prompting.`,
+        `${name} independently completed ${(toPercent(userInput))} of ${programName} opportunities today.`,
+        `${gender} independently completed ${(toPercent(userInput))} of ${programName} opportunities today.`,
+        `${(toPercent(userInput))} of the ${programName} trials were scored positively.`,
+        `${(toPercent(userInput))} of the ${programName} components were scored positively.`,
+        `${(toPercent(userInput))} of the ${programName} opportunities were independently completed during session.`,
+        `During ${programName} the learner independently completed an average of ${(toPercent(userInput))} of the components.`,
+        `During ${programName} ${name} independently completed an average of ${(toPercent(userInput))} of the components.`,
+        `During ${programName} ${gender} independently completed an average of ${(toPercent(userInput))} of the components.`,
+        `${userInput} ${programName} trials were completed without additional prompting.`,
+        `Throughout the session, ${(toPercent(userInput))} of ${programName} trials were scored in the absence of problem behavior.`
+    ];
 }
 
 //Behaviors Targeted for Decrease Sentence Variations (Problem Behavior)
@@ -37,9 +38,6 @@ function problemVariation(name, gender, problemName) {
         `${name} engaged in ${userInput} episodes of ${problemName} during session.`,
         `${name} engaged in ${userInput} episodes of ${problemName}.`,
         `${gender} engaged in ${userInput} episodes of ${problemName} during session.`,
-        `${gender} engaged in ${userInput} episodes of ${problemName}.`,
-
-        //test
         `${gender} engaged in ${userInput} episodes of ${problemName}.`,
 
     ]
@@ -61,12 +59,9 @@ function peoplePresent(people) {
         `${people}: ${userInput}`,
     ]
 }
-
-
 //This function returns an array of sentences of a matched id
 //libraryOfPrograms has to have an id and at least one string in result; name is optional
-function LibraryP(userInput, programId, name, gender){
-    
+function LibraryP(userInput, programId, name, gender){ 
     //handles a special case with "demeanor"
     if(programId == "demeanor" || programId == "purpose"){
         const specialCase = {
@@ -81,7 +76,6 @@ function LibraryP(userInput, programId, name, gender){
         }
         return specialCase[`${userInput}`];
     }
-
     libraryOfPrograms = [ 
         //Skill Acquisition PROGRAMS
         // edit key "o" numerically to change order
@@ -153,36 +147,21 @@ function LibraryP(userInput, programId, name, gender){
         {id: "KcriticalInformation", name: "Any Critical Info?",          result: closerVariation("Critical Info:"), header: "Closer",},
 
         //Purpose of Session
-        {o: "disabled", id: "Apurpose", name: "Purpose of Session", result: []},
+        {o: "disabled", id: "purpose", name: "Purpose of Session", result: []},
         //Opening Statement
-        {o: "disabled", id: "Aguests", name: "People Present During Session", result: peoplePresent("People Present:")},
+        {id: "Aguests", name: "People Present During Session", result: peoplePresent("People Present:")},
     
     ];
     if(isGenerate){
         return libraryOfPrograms;//returns an array formatted for constructing html
     }
-    else{
-        console.log(programId);
-        
-
+    else{     
         let i = 0;
         while (programId !== libraryOfPrograms[i]["id"]) { i++; } //finds a match
         return libraryOfPrograms[i]["result"];//returns an array formatted for generateNote function
     }
-    
 }
 
-/*
-<div id="programList">  append everything below to this div
-<div class = "programItem title" id = "puzzle">
-    <div class = "selected">
-        <label><input type="checkbox">Puzzle</label> 
-    </div>
-    <div class="userInput">
-        <input class = "extractThisInput" type="text">
-    </div>
-</div>
-*/
 //html automation
 let isGenerate;
 function generateHtml(){
@@ -196,7 +175,6 @@ function generateHtml(){
             return -1;
         }
         return 0;
-        
     });//sorts an array in alphabetic order
   
     for (let i = 0; i < libraryArray.length; i++){
@@ -247,7 +225,7 @@ function generateHtml(){
         mainNode.appendChild(divParent);
     }
 }
-generateHtml();
+generateHtml();//calling function to generate html on page load
 //Main functions
 //loops through libraryOfPrograms and only outputs selected programs
 function generateNote(usrname, usrgender) {
@@ -293,8 +271,7 @@ function resetInputField(){
 function toPercent(input){
     input = input.split("/");
     return Math.round(input[0] / input[1] * 100) + "%";
-}
-    
+}  
 //Event listeners
 generateButton.addEventListener("click", () => {
     usrname = name.value.trim();//use trim to erase white spaces Ex. "   " returns ""
