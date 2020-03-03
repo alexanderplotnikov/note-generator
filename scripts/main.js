@@ -192,9 +192,11 @@ function generateHtml(){
         //make a variable for new attribute; assign a value to the newly created attribute
         //set attribute to an element
         //append element to parent
-        
-        let label = document.createElement("LABEL");
+        //add class checkContainer to label
+        //append span to userInput
+        let label = document.createElement("LABEL"); label.classList.add("checkContainer");
         let input = document.createElement("INPUT");
+        let span = document.createElement("SPAN"); span.classList.add("checkmark");
         let divParent = document.createElement("DIV");
         let divSelected = document.createElement("DIV");
         let divUserInput = document.createElement("DIV");
@@ -212,6 +214,7 @@ function generateHtml(){
         divSelected.setAttributeNode(attrClassSelected);
         input.setAttributeNode(attrType);
         label.appendChild(input);
+        label.append(span);
         label.append(`${libraryArray[i]["name"]}`); //variable NAME
         divSelected.appendChild(label);
         divParent.appendChild(divSelected);

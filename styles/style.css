@@ -4,24 +4,84 @@
     border and headers #E68E2B
     dark input area #162A37
 */
-
 body{
     background-color: #103A45;
     color: #EED295;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 @media (min-width: 300px){
+    /* main content */
+    .rbtNote{
+        padding-top: 4em;
+    }
+    /* navbar layout */
+    .menuHidden{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        justify-content: center;
+        position: fixed;
+        width: 100%;
+        background-color: #103A45;
+        box-shadow: 0 0 5px 0 black;
+        padding: 1em 0;
+        z-index: 100;
+    }
+    .menuHidden > * {
+        justify-self: center;
+    }
+    .navButton{
+        display: table-cell;
+        cursor: pointer;
+        width: 180px;
+        height: 50px;
+        border: solid 2px#EED295;
+        border-radius: 1px;
+        text-align: center;
+        vertical-align: middle;
+    }
+    #generateNote{
+        background-color: #EED295;
+        color: #162A37;
+        font-size: 1.5em;
+        font-weight: 600;
+        
+    }
+    #generateNote:hover{
+        background-color: transparent;
+        color: #EED295;
+        box-shadow: inset 0 0 2px 0#E68E2B;
+    }
+    #bcbaNoteBtn:hover{
+        border:solid 2px #E68E2B;
+        color: #E68E2B;
+    }
+    .menuHidden > li:nth-child(1){
+        display: none;
+    }
+    .menuHidden > li:nth-child(3){
+        display: none;
+    }
+    #logo{
+        display: table-cell;
+        height: 50px;
+        vertical-align: middle;
+        font-style: italic;
+        font-size: 1.5em;
+    }
+
+    /* program list layout and style */
     #programList {
         display: grid;
-        grid-template-columns: repeat(1, 1fr); 
+        grid-template-columns: repeat(1, 1fr);
     }   
     .category{
         justify-self: start;
         padding: 0.5em 0;
         font-size: 2.5em;
         color: #E68E2B;
+        text-shadow: 0 0 3px red; /* OPTIONAL SHADOW */
     }
-    .programItem{
+    #programList > * { 
         margin: 0.2em;
     }
     #programList > div > div{
@@ -40,24 +100,58 @@ body{
     .openerItem > .userInput > .extractThisInput{
         width: 50%;
     }
+    .openerItem > .userInput > .extractThisInput,
+    .programItem > .userInput > .extractThisInput{
+        background-color: #162A37;
+        border-radius: 5px;
+        border: solid 1px #E68E2B;
+        color: #EED295;
+        text-align: center;
+    }
+    .openerItem > .selected{
+        padding: 0.5em 0;
+    }
+
+    #input{
+        display: none;
+    }
+    input{
+        height: 1.75em;
+    }
+    select{
+        height: 2em;
+    }
+    
+    /* result area */
     #textAreaResult{
         width: 100%;
         margin: 0 auto;
         padding-bottom: 2em;
     }
     #textAreaResult > textarea{
+        background-color: #162A37;
+        color: #EED295;
         height: 300px;
         width: 95%;
         font-size: 1.2em;
         padding: 1em 2.5%;
         resize: none;
+        border: none;
+        border-radius: 5px;
     }
 }
+/* Two column layout */
 @media (min-width: 640px){
     #programList {
         grid-template-columns: repeat(2, 1fr);
         padding: 0.5em;
     }  
+    .menuHidden{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .menuHidden > li:nth-child(3){
+        display: table-cell;
+    }
     .category{
         justify-self: center;
         font-size: 3.2em;
@@ -67,55 +161,101 @@ body{
         width: 90%;
     }
 }
+/* Three columnn layout */
 @media (min-width: 768px){
     #programList {
         grid-template-columns: repeat(3, 1fr);        
-    }  
+    } 
+    .menuHidden{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .menuHidden > li:nth-child(1){
+        display: table-cell;
+    }
     .category{
         grid-column: 1 / span 3;
     } 
 }
+/* layout adjust for bigger scrins */
 @media (min-width: 1025px){
     #programList {
         width: 80%;
         margin: 0 auto;
     } 
-    #textAreaResult{
-        
+    #textAreaResult{ 
         width: 60%;
     }  
 }
 
-.openerItem > .userInput > .extractThisInput,
-.programItem > .userInput > .extractThisInput{
-    background-color: #162A37;
-    border-radius: 5px;
-    border: solid 1px #E68E2B;
-    height: 1.75em;
-    color: #EED295;
-    text-align: center;
-}
 
-#input{
-    display: none;
-}
 
-#generateNote{
-    display: table-cell;
+
+/* Customize the label (the container) */
+.checkContainer {
+    display: block;
+    position: relative;
+    padding-left: 20px;
     cursor: pointer;
-    background-color: rgb(236, 219, 199);
-    width: 100px;
-    height: 50px;
-    border: solid 2px black;
-    text-align: center;
-    vertical-align: middle;
-    
-}
-.menuHidden:nth-child(2){
-    width: 100px;
-    margin: 0 auto;
-}
-#generateNote:hover{
-    background-color: bisque;
-    box-shadow: 0px 0px 3px 0px rgba(94,94,94,1);
-}
+    font-size: 1em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    left: 0;
+    top: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 14px;
+    width: 14px;
+    background-color: darkgrey;
+    border-radius: 2px;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .checkContainer:hover input ~ .checkmark {
+    background-color: grey;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkContainer input:checked ~ .checkmark {
+    background-color: grey;
+  }
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  /* Show the checkmark when checked */
+  .checkContainer input:checked ~ .checkmark:after {
+    display: block;
+  }
+  /* Style the checkmark/indicator */
+  .checkContainer .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 2px;
+    height: 6px;
+    border: solid #EED295;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+
+ 
