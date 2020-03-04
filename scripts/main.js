@@ -4,50 +4,66 @@ const generateButton = document.querySelector("#generateNote");//generate note b
 let name = document.querySelector("#username > .userInput > .extractThisInput"); // store name for Library templates
 let gender = document.querySelector("#gender > .userInput > .extractThisInput");//store gender for Library templates
 let userInput = "";
-//let upperGender = (gender.value.charAt(0).toUpperCase() + gender);
-
 //Variations
-function saVariationOne(programN) {
-    return (`${(toPercent(userInput))} of ${programN} components were scored as independent during this observation.`)
-}
-
-function saVariationTwo(name, programN){
-    return (`${name} independently completed ${userInput} ${programN} components.`)
-}
-
-function saVariationThree(gender, programN){
-    return (`${gender} completed ${userInput} ${programN} trials independently during session.`)
-}
-
 function randomVariation(name, gender, programName){
-    return [`${(toPercent(userInput))} of ${programName} components were scored as independent during this observation.`,
-            `${(toPercent(userInput))} of ${programName} trials were scored positively.`,
-            `${(toPercent(userInput))} of ${programName} trials were recorded as positive.`,
-            `${userInput} of ${programName} components were scored as independent during this observation.`,
-            `${name} independently completed ${userInput} ${programName} components.`,
-            `${gender} completed ${userInput} ${programName} trials independently during session.`,
-            `${gender} completed ${userInput} ${programName} components with no additional prompting.`,
-            `${userInput} ${programName} trials were scored positively.`,
-            `${userInput} ${programName} components were recorded as independent.`,
-            `${userInput} ${programName} components were scored as without prompting.`,
-            `${name} independently completed ${(toPercent(userInput))} of ${programName} opportunities today.`,
-            `${gender} independently completed ${(toPercent(userInput))} of ${programName} opportunities today.`,
-            `${(toPercent(userInput))} of the ${programName} trials were scored positively.`,
-            `${(toPercent(userInput))} of the ${programName} components were scored positively.`,
-            `${(toPercent(userInput))} of the ${programName} opportunities were independently completed during session.`,
-            `During ${programName} the learner independently completed an average of ${(toPercent(userInput))} of the components.`,
-            `During ${programName} ${name} independently completed an average of ${(toPercent(userInput))} of the components.`,
-            `During ${programName} ${gender} independently completed an average of ${(toPercent(userInput))} of the components.`,
-            `${userInput} ${programName} trials were completed without additional prompting.`,
-            `Throughout the session, ${(toPercent(userInput))} of ${programName} trials were scored in the absence of problem behavior.`
-        ];
+    return [
+        `${(toPercent(userInput))} of ${programName} components were scored as independent during this observation.`,
+        `${(toPercent(userInput))} of ${programName} trials were scored positively.`,
+        `${(toPercent(userInput))} of ${programName} trials were recorded as positive.`,
+        `${userInput} of ${programName} components were scored as independent during this observation.`,
+        `${name} independently completed ${userInput} ${programName} components.`,
+        `${gender} completed ${userInput} ${programName} trials independently during session.`,
+        `${gender} completed ${userInput} ${programName} components with no additional prompting.`,
+        `${userInput} ${programName} trials were scored positively.`,
+        `${userInput} ${programName} components were recorded as independent.`,
+        `${userInput} ${programName} components were scored as without prompting.`,
+        `${name} independently completed ${(toPercent(userInput))} of ${programName} opportunities today.`,
+        `${gender} independently completed ${(toPercent(userInput))} of ${programName} opportunities today.`,
+        `${(toPercent(userInput))} of the ${programName} trials were scored positively.`,
+        `${(toPercent(userInput))} of the ${programName} components were scored positively.`,
+        `${(toPercent(userInput))} of the ${programName} opportunities were independently completed during session.`,
+        `During ${programName} the learner independently completed an average of ${(toPercent(userInput))} of the components.`,
+        `During ${programName} ${name} independently completed an average of ${(toPercent(userInput))} of the components.`,
+        `During ${programName} ${gender} independently completed an average of ${(toPercent(userInput))} of the components.`,
+        `${userInput} ${programName} trials were completed without additional prompting.`,
+        `Throughout the session, ${(toPercent(userInput))} of ${programName} trials were scored in the absence of problem behavior.`
+    ];
 }
 
+//Behaviors Targeted for Decrease Sentence Variations (Problem Behavior)
+function problemVariation(name, gender, problemName) {
+    return [
+        `The learner engaged in ${userInput} episodes of ${problemName} during session.`,
+        `The learner engaged in ${userInput} episodes of ${problemName}.`,
+        `${name} engaged in ${userInput} episodes of ${problemName} during session.`,
+        `${name} engaged in ${userInput} episodes of ${problemName}.`,
+        `${gender} engaged in ${userInput} episodes of ${problemName} during session.`,
+        `${gender} engaged in ${userInput} episodes of ${problemName}.`,
+
+    ]
+}
+
+//`${userInput} were present throughout session.`
+
+
+
+//Closer sentence variations
+function closerVariation(closerName) {
+    return [
+        `${closerName} ${userInput}`,
+    ]
+}
+//People Present During Session
+function peoplePresent(people) {
+    return [
+        `${people}: ${userInput}`,
+    ]
+}
 //This function returns an array of sentences of a matched id
 //libraryOfPrograms has to have an id and at least one string in result; name is optional
-function LibraryP(userInput, programId, name, gender){
+function LibraryP(userInput, programId, name, gender){ 
     //handles a special case with "demeanor"
-    if(programId == "demeanor" || programId == "purpose"){
+    if(programId == "Ademeanor" || programId == "Apurpose"){
         const specialCase = {
             //Demeanor Case
             smiling: [`The learner presented with a smile.`, `${name} greeted the therapist with a smile and enthusiastic greeting.`],
@@ -57,105 +73,134 @@ function LibraryP(userInput, programId, name, gender){
             direct: [`The purpose of today's session was to provide direct therapy and implement skill acquisition and behavior decrease targets.`],
             pairing: [`pairing fill in`],
             generalization: [`generalization fill in`],
-            
         }
         return specialCase[`${userInput}`];
     }
     libraryOfPrograms = [ 
-        //RBT PROGRAMS
+        //Skill Acquisition PROGRAMS
         // edit key "o" numerically to change order
         // type "exclude" to temporarily disable
-        {o: 4, id: "puzzle",           name: "Puzzle",                  result: randomVariation(name, gender, "puzzle")},
-        {o: 2, id: "activitySchedule", name: "Activity Schedule",       result: randomVariation(name, gender, "activity schedule")},
-        {o: 1, id: "walking",          name: "Walking",                 result: randomVariation(name, gender, "walking")},
-        {o: 3, id: "waiting",          name: "Waiting",                 result: randomVariation(name, gender, "waiting")},
-        {o: 5, id: "cleanUp",          name: "Clean Up",                result: randomVariation(name, gender, "clean up")},
-        {id: "safetyDirections", name: "Safety Directions",             result: randomVariation(name, gender, "safety directions")},
-        {id: "sorting",          name: "Sorting",                       result: randomVariation(name, gender, "sorting")},
-        {id: "stringingBeads",   name: "Stringing Beads",               result: randomVariation(name, gender, "stringing beads")},
-        {id: "vocalImitation",   name: "Vocal Imitation",               result: randomVariation(name, gender, "vocal imitation")},
-        {id: "gmi",              name: "GMI",                           result: randomVariation(name, gender, "GMI")},
-        {id: "fmi",              name: "FMI",                           result: randomVariation(name, gender, "FMI")},
-        {id: "imWithObjects",    name: "IM W/ Objects",                 result: randomVariation(name, gender, "imitation with objects")},
-        {id: "attendanceSong",   name: "Attendance Song",               result: randomVariation(name, gender, "attendance song")},
-        {id: "napPrep",          name: "Nap Prep",                      result: randomVariation(name, gender, "nap prep")},
-        {id: "selfRegulation",   name: "Self-Regulation",               result: randomVariation(name, gender, "self-regulation")},
-        {id: "toothbrushing",    name: "Toothbrushing",                 result: randomVariation(name, gender, "toothbrushing")},
-        {id: "reading",          name: "Reading",                       result: randomVariation(name, gender, "reading")},
-        {id: "art",              name: "Art",                           result: randomVariation(name, gender, "art skills")},
-        {id: "communicatesNo",   name: "Communicates No",               result: randomVariation(name, gender, "communicates no")},
-        {id: "greetings",        name: "Responds to Greetings",         result: randomVariation(name, gender, "responds to greetings")},
-        {id: "respondsToName",   name: "Responds to Name",              result: randomVariation(name, gender, "responds to name")},
-        {id: "manding",          name: "Manding",                       result: randomVariation(name, gender, "manding")},
-        {id: "deniedAccess",     name: "Accepts Denied Access",         result: randomVariation(name, gender, "accepts denied access")},
-        {id: "gameplay",         name: "Gameplay",                      result: randomVariation(name, gender, "gameplay")},
-        {id: "timer",            name: "Timer",                         result: randomVariation(name, gender, "response to timer")},
-        {id: "jaInitiation",     name: "Join Attention: Init",          result: randomVariation(name, gender, "joint attention: initialization")},
-        {id: "relinquishing",    name: "Relinquishing",                 result: randomVariation(name, gender, "relinquishing")},
-        {id: "pecs",             name: "PECS",                          result: randomVariation(name, gender, "PECS")},
-        {id: "songGestures",     name: "Gestures During Song",          result: randomVariation(name, gender, "gestures during song")},
-        {id: "chooseBtwnTwo",    name: "Choose Btwn Two",               result: randomVariation(name, gender, "choose between two items")},
-        {id: "mandsMissing",     name: "Mands for Missing",             result: randomVariation(name, gender, "mands for missing objects")},
-        {id: "peerRequests",     name: "Spont. Resp. to Peer Requests", result: randomVariation(name, gender, "spontaneous response to peer requests")},
-        {id: "smallGroups",      name: "Small Group Activites",         result: randomVariation(name, gender, "small group activities")},
-        {id: "interval",         name: "Interval Data",                 result: randomVariation(name, gender, "interval data")},
-        {id: "np",               name: "Non-Preferred Activites",       result: randomVariation(name, gender, "non-preferred activites")},
-        {id: "p",                name: "Preferred Activites",           result: randomVariation(name, gender, "preferred activites")},
-        {id: "modelBuilding",    name: "Model Building",                result: randomVariation(name, gender, "model building")},
-        
+        {id: "CactivitySchedule", name: "Activity Schedule",             result: randomVariation(name, gender, "activity schedule"), header: "Skill Acquisition",},
+        {id: "Cpuzzle",           name: "Puzzle",                        result: randomVariation(name, gender, "puzzle",)},
+        {id: "Cwalking",          name: "Walking",                       result: randomVariation(name, gender, "walking")},
+        {id: "Cwaiting",          name: "Waiting",                       result: randomVariation(name, gender, "waiting")},
+        {id: "CcleanUp",          name: "Clean Up",                      result: randomVariation(name, gender, "clean up")},
+        {id: "CsafetyDirections", name: "Safety Directions",             result: randomVariation(name, gender, "safety directions")},
+        {id: "Csorting",          name: "Sorting",                       result: randomVariation(name, gender, "sorting")},
+        {id: "CstringingBeads",   name: "Stringing Beads",               result: randomVariation(name, gender, "stringing beads")},
+        {id: "CvocalImitation",   name: "Vocal Imitation",               result: randomVariation(name, gender, "vocal imitation")},
+        {id: "Cgmi",              name: "GMI",                           result: randomVariation(name, gender, "GMI")},
+        {id: "Cfmi",              name: "FMI",                           result: randomVariation(name, gender, "FMI")},
+        {id: "CimWithObjects",    name: "IM W/ Objects",                 result: randomVariation(name, gender, "imitation with objects")},
+        {id: "CattendanceSong",   name: "Attendance Song",               result: randomVariation(name, gender, "attendance song")},
+        {id: "CnapPrep",          name: "Nap Prep",                      result: randomVariation(name, gender, "nap prep")},
+        {id: "CselfRegulation",   name: "Self-Regulation",               result: randomVariation(name, gender, "self-regulation")},
+        {id: "Ctoothbrushing",    name: "Toothbrushing",                 result: randomVariation(name, gender, "toothbrushing")},
+        {id: "Creading",          name: "Reading",                       result: randomVariation(name, gender, "reading")},
+        {id: "Cart",              name: "Art",                           result: randomVariation(name, gender, "art skills")},
+        {id: "CcommunicatesNo",   name: "Communicates No",               result: randomVariation(name, gender, "communicates no")},
+        {id: "Cgreetings",        name: "Responds to Greetings",         result: randomVariation(name, gender, "responds to greetings")},
+        {id: "CrespondsToName",   name: "Responds to Name",              result: randomVariation(name, gender, "responds to name")},
+        {id: "Cmanding",          name: "Manding",                       result: randomVariation(name, gender, "manding")},
+        {id: "CdeniedAccess",     name: "Accepts Denied Access",         result: randomVariation(name, gender, "accepts denied access")},
+        {id: "Cgameplay",         name: "Gameplay",                      result: randomVariation(name, gender, "gameplay")},
+        {id: "Ctimer",            name: "Timer",                         result: randomVariation(name, gender, "response to timer")},
+        {id: "CjaInitiation",     name: "Join Attention: Init",          result: randomVariation(name, gender, "joint attention: initialization")},
+        {id: "Crelinquishing",    name: "Relinquishing",                 result: randomVariation(name, gender, "relinquishing")},
+        {id: "Cpecs",             name: "PECS",                          result: randomVariation(name, gender, "PECS")},
+        {id: "CsongGestures",     name: "Gestures During Song",          result: randomVariation(name, gender, "gestures during song")},
+        {id: "CchooseBtwnTwo",    name: "Choose Btwn Two",               result: randomVariation(name, gender, "choose between two items")},
+        {id: "CmandsMissing",     name: "Mands for Missing",             result: randomVariation(name, gender, "mands for missing objects")},
+        {id: "CpeerRequests",     name: "Spont. Resp. to Peer Requests", result: randomVariation(name, gender, "spontaneous response to peer requests")},
+        {id: "CsmallGroups",      name: "Small Group Activites",         result: randomVariation(name, gender, "small group activities")},
+        {id: "Cinterval",         name: "Interval Data",                 result: randomVariation(name, gender, "interval data")},
+        {id: "Cnp",               name: "Non-Preferred Activites",       result: randomVariation(name, gender, "non-preferred activites")},
+        {id: "Cp",                name: "Preferred Activites",           result: randomVariation(name, gender, "preferred activites")},
+        {id: "CmodelBuilding",    name: "Model Building",                result: randomVariation(name, gender, "model building")},
+        //Behaviors Targeted for Decrease
+        {id: "Haggression",       name: "Aggression",                    result: problemVariation(name, gender, "aggression"), header: "Behaviors Targeted for Decrease",},
+        {id: "Hthrowing",         name: "Throwing",                      result: problemVariation(name, gender, "throwing")},
+        {id: "Hcrying",           name: "Crying",                        result: problemVariation(name, gender, "crying")},
+        {id: "Hnon-compliance",   name: "Non-Compliance",                result: problemVariation(name, gender, "non-compliance")},
+        {id: "Htantrum",          name: "Tantrum",                       result: problemVariation(name, gender, "tantrum")},
+        {id: "Hwhining",          name: "Whining",                       result: problemVariation(name, gender, "whining")},
+        {id: "Hflopping",         name: "Flopping",                      result: problemVariation(name, gender, "flopping")},
+        {id: "Hsib",              name: "SIB",                           result: problemVariation(name, gender, "SIB")},
+        {id: "Hkicking",          name: "Kicking",                       result: problemVariation(name, gender, "kicking")},
+        {id: "Hyelling",          name: "Yelling",                       result: problemVariation(name, gender, "yelling")},
+        {id: "HhittingOthers",    name: "Hitting Others",                result: problemVariation(name, gender, "hitting others")},
+        {id: "Hscripting",        name: "Scripting",                     result: problemVariation(name, gender, "scripting")},
+        {id: "Hmouthing",         name: "Mouthing",                      result: problemVariation(name, gender, "mouthing")},
+        {id: "HhittingSelf",      name: "Hitting Self",                  result: problemVariation(name, gender, "hitting self")},
+        {id: "Hbiting",           name: "Biting",                        result: problemVariation(name, gender, "biting")},
+        {id: "Hspitting",         name: "Spitting",                      result: problemVariation(name, gender, "spitting")},
+        {id: "Hdumping",          name: "Dumping",                       result: problemVariation(name, gender, "dumping")},
+        {id: "Hdisrobing",        name: "Disrobing",                     result: problemVariation(name, gender, "disrobing")},
+        //Closer
+        {id: "Kpretest",           name: "Pretest Run?",                  result: closerVariation("Pretests Conducted:")},
+        {id: "KnewPrograms",       name: "New Programs Run?",             result: closerVariation("New Programs:")},
+        {id: "KprogramRevisions",  name: "Program Revisions?",            result: closerVariation("Program Revisions:")},
+        {id: "KgeneralizationProbes", name: "Generalization Probes?",     result: closerVariation("Generalization Probes Conducted:")},
+        {id: "KnewTargets",        name: "New Targets?",                  result: closerVariation("New Targets:")},
+        {id: "Kmaintenance",       name: "Maintenance?",                  result: closerVariation("Maintenance Updates:")},
+        {id: "KnewMotivationalSystem", name: "New Motivational System?",  result: closerVariation("New Motivational System:")},
+        {id: "KcriticalInformation", name: "Any Critical Info?",          result: closerVariation("Critical Info:"), header: "Closer",},
+
         //Purpose of Session
         {o: "disabled", id: "purpose", name: "Purpose of Session", result: []},
         //Opening Statement
-        {id: "guests", name: "People Present During Session", result: [`${userInput} were present throughout session.`]},
-    
+        {o: "disabled", id: "Aguests", name: "People Present During Session", result: peoplePresent("People Present:")},
     ];
     if(isGenerate){
         return libraryOfPrograms;//returns an array formatted for constructing html
     }
-    else{
+    else{     
         let i = 0;
         while (programId !== libraryOfPrograms[i]["id"]) { i++; } //finds a match
         return libraryOfPrograms[i]["result"];//returns an array formatted for generateNote function
     }
-    
 }
 
-/*
-<div id="programList">  append everything below to this div
-<h1 class="category">Skill Acquisition</h1>
-<div class = "programItem title" id = "puzzle">
-    <div class = "selected">
-        <label><input type="checkbox">Puzzle</label> 
-    </div>
-    <div class="userInput">
-        <input class = "extractThisInput" type="text">
-    </div>
-</div>
-*/
 //html automation
-//
 let isGenerate;
 function generateHtml(){
     isGenerate = true; // makes sure library returns an array formated for constructing html
     let libraryArray = new LibraryP(userInput, isGenerate);
-    libraryArray.sort((a, b) => a["o"] - b["o"]);//sorts an array in order according to "o" values
-    console.log(libraryArray);
+    libraryArray.sort((a, b) => {
+        if(a["id"] > b["id"]){
+            return 1;
+        }
+        if(a["id"] < b["id"]){
+            return -1;
+        }
+        return 0;
+    });//sorts an array in alphabetic order
   
     for (let i = 0; i < libraryArray.length; i++){
+        let mainNode = document.querySelector("#programList");
+        let header = document.createElement("H1");
+        if(libraryArray[i].hasOwnProperty("header")){
+            header.className = "category";
+            header.innerHTML = `${libraryArray[i]["header"]}`
+            mainNode.appendChild(header)
+        }
         if(libraryArray[i]["o"] == "disabled"){
             continue; // excludes items from html with "disabled" tag in LibraryP
         }
+    
         //instructions to add a class or any other attribute
         //make a variable for new attribute; assign a value to the newly created attribute
         //set attribute to an element
         //append element to parent
-        let mainNode = document.querySelector("#programList");
-        let label = document.createElement("LABEL");
+        //add class checkContainer to label
+        //append span to userInput
+        let label = document.createElement("LABEL"); label.classList.add("checkContainer");
         let input = document.createElement("INPUT");
+        let span = document.createElement("SPAN"); span.classList.add("checkmark");
         let divParent = document.createElement("DIV");
         let divSelected = document.createElement("DIV");
         let divUserInput = document.createElement("DIV");
-        let extractInput = document.createElement("INPUT");
+        let extractInput = document.createElement("INPUT"); 
         let attrType = document.createAttribute("type"); attrType.value = "checkbox";
         let attrClassSelected = document.createAttribute("class"); attrClassSelected.value = "selected";
         let attrClassProgramItem = document.createAttribute("class"); attrClassProgramItem.value = "programItem";
@@ -169,19 +214,28 @@ function generateHtml(){
         divSelected.setAttributeNode(attrClassSelected);
         input.setAttributeNode(attrType);
         label.appendChild(input);
+        label.append(span);
         label.append(`${libraryArray[i]["name"]}`); //variable NAME
         divSelected.appendChild(label);
         divParent.appendChild(divSelected);
     
         extractInput.setAttributeNode(attrTypeText);
-        extractInput.setAttributeNode(attrClassExtract);
+        extractInput.setAttributeNode(attrClassExtract); extractInput.classList.add("hide");
         divUserInput.setAttributeNode(attrClassUserInput);
         divUserInput.appendChild(extractInput);
         divParent.appendChild(divUserInput);
         mainNode.appendChild(divParent);
+        //const checkStatus = querySelector(".selected > .checkContainer > input");
+        //const inputStatus = querySelector(".extractThisInput");
+        input.addEventListener("click", () =>{
+            
+                extractInput.classList.toggle("hide");
+            
+        });
+        
     }
 }
-generateHtml();
+generateHtml();//calling function to generate html on page load
 //Main functions
 //loops through libraryOfPrograms and only outputs selected programs
 function generateNote(usrname, usrgender) {
@@ -197,12 +251,17 @@ function generateNote(usrname, usrgender) {
         if (selected) { // if checked
             userInput = document.querySelector(`#${programId} > .userInput > .extractThisInput`).value; //extracts user's input
             if (userInput == ""){// alternative method: a function that toggles a class Error and changes border color to red
-                alert(`missing information for ${programId}`);
+                alert(`missing information for ${programId.substr(1)}`);
                 break;//or use continue?; continue prompts an error, but then continues with note generation
             }
             let resultArray = new LibraryP(userInput, programId, usrname, usrgender); //updates programs Library with new userInput
             randomNumber = (Math.floor(Math.random() * Math.floor(resultArray.length)))//generates random number
-            generatedNote += resultArray[randomNumber] + " ";
+            if(resultArray[randomNumber].charAt(0) == "h" || resultArray[randomNumber].charAt(0) == "s"){
+                generatedNote += resultArray[randomNumber].charAt(0).toUpperCase() + resultArray[randomNumber].substr(1) + " ";    
+            }
+            else{
+                generatedNote += resultArray[randomNumber] + " ";  
+            }
         }
     }
     textArea.value = generatedNote; //updates textarea field with the generated note 
@@ -222,8 +281,7 @@ function resetInputField(){
 function toPercent(input){
     input = input.split("/");
     return Math.round(input[0] / input[1] * 100) + "%";
-}
-    
+}  
 //Event listeners
 generateButton.addEventListener("click", () => {
     usrname = name.value.trim();//use trim to erase white spaces Ex. "   " returns ""
@@ -239,3 +297,33 @@ generateButton.addEventListener("click", () => {
         generateNote(usrname, usrgender);
     } 
 });
+
+const bcbaBtn = document.querySelector("#bcbaLi");
+const rbtBtn = document.querySelector("#rbtLi");
+const rbtNote = document.querySelector(".rbtNote");
+const bcbaNote = document.querySelector(".bcbaNote");
+const rbtLogoLi = document.querySelector("#rbtLogoLi");
+const bcbaLogoLi = document.querySelector("#bcbaLogoLi");
+const navBarArray = [bcbaBtn, rbtBtn, rbtNote, bcbaNote, rbtLogoLi, bcbaLogoLi];
+const navBarBtnArray = [bcbaBtn, rbtBtn];
+for (let btn of navBarBtnArray){
+    btn.addEventListener("click", () =>{
+        for (let elem of navBarArray){
+            elem.classList.toggle("hide");
+        }
+    });
+}
+
+/* 
+<div class = "openerItem programItem" value = "" id = "Aguests">
+    <div class="selected">
+        <label class = "checkContainer">People Present During Session
+            <input type="checkbox" >
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <div class="userInput">
+        <input class = "extractThisInput" type="text">            
+    </div>  
+</div>  */
+

@@ -10,48 +10,36 @@
 </head>
 <body>
     <nav>
-        
-        <!--hide once selected type of note-->
-        <ul class="menuHeader"> 
-            <li>Session Note Generator</li>
-        </ul>
         <!--show once selected type of note-->
         <ul class="menuHidden">
-            <!--show only one; allign to the left-->
-            <li>RBT Note</li>
-            <li>BCBA Note</li>
-            <!--allign buttons to the right-->
-            <li><div type="button" id = "generateNote">Generate</div></li>
-            <li><div type="button">Back</div></li>
+            <li id = "rbtLogoLi"><div class="logo">RBT Note Generator</div></li>
+            <li class = "hide" id = "bcbaLogoLi"><div class="logo">BCBA Note Generator</div></li>
+            <li><div type="button" class = "navButton" id = "generateNote">Generate</div></li>
+            <li id="bcbaLi"><div type="button" class = "navButton" id = "bcbaNoteBtn">BCBA Note</div></li>
+            <li class = "hide" id="rbtLi"><div type="button" class = "navButton" id = "rbtNoteBtn">RBT Note</div></li>
         </ul>
     </nav>
-    <!--main page-->
-    <div class="noteSelection">
-        <div></div><!--RBT Note Selection Large Button-->
-        <div></div><!--BCBA Note Selection-->
-    </div>
     <!--show if rbt note was chosen-->
     <div class="rbtNote">
         <div id="programList">
             <!--Opening Statement-->
-            <h1 class = "category">Purpose of Session</h1>
-            <div class = "openerItem programItem" id = "purpose">
+            <h1 class = "category">Opener</h1>
+            <div class = "openerItem programItem" id = "Apurpose">
                 <div class="selected">
-                    <label><input id="input"type="checkbox">Purpose</label>
+                    <label><input id="input"type="checkbox" checked>Purpose</label>
                 </div>
                 <div class="userInput">
                     <select class = "extractThisInput">
-                        <option value="" selected>--Select--</option>
+                        <option value="" selected disabled>--Select--</option>
                         <option value="direct">Provide Direct Therapy</option>
                         <option value="pairing">Pairing</option>
                         <option value="generalization">Probe Generalization</option>
                     </select>
                 </div>       
             </div>
-            <h1 class = "category">Opener</h1>
             <div class = "openerItem" value = "" id = "username">
                 <div class="selected">
-                    <label><input id="input"type="checkbox" >Learner's First Name:</label>
+                    <label>Learner's First Name:</label>
                 </div>
                 <div class="userInput">
                     <input class = "extractThisInput" type="text">            
@@ -59,19 +47,19 @@
             </div>
             <div class = "openerItem" id = "gender">
                 <div class="selected">
-                    <label><input id="input"type="checkbox">Learner's Gender:</label>
+                    <label>Learner's Gender:</label>
                 </div>
                 <div class="userInput">
                     <select class = "extractThisInput">
-                        <option value="novalue"selected disabled>--Select--</option>
-                        <option value="he">Boy</option>
+                        <option value="novalue" disabled>--Select--</option>
+                        <option value="he" selected>Boy</option>
                         <option value="she">Girl</option>
                     </select>
                 </div>       
             </div>
-            <div class = "openerItem programItem" id = "demeanor">
+            <div class = "openerItem programItem" id = "Ademeanor">
                 <div class="selected">
-                    <label><input id="input"type="checkbox">Learner's Demeanor:</label>
+                    <label><input id="input"type="checkbox" checked>Learner's Demeanor:</label>
                 </div>
                 <div class="userInput">
                     <select class = "extractThisInput">
@@ -81,33 +69,29 @@
                         <option value="crying">Crying</option>
                     </select>
                 </div>       
-            </div>
-            <div class = "openerItem programItem" id = "guests">
+            </div> 
+            <div class = "openerItem programItem" value = "" id = "Aguests">
                 <div class="selected">
-                    <label><input id="input"type="checkbox">People Present During Session</label>
+                    <label class = "checkContainer">People Present During Session
+                        <input type="checkbox" >
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
                 <div class="userInput">
-                    <input class = "extractThisInput" type="text"> 
-                </div>
-            </div>
-            <div id="textAreaResult">
-                <textarea value="insert result here"></textarea>
-            </div>
-            <!--Skill Acquisition Section-->
-            <h1 class="category">Skill Acquisition</h1>
-            <!-- <div class = " example" id = "example"> this ID has to match with key name is libraryOfPrograms
-                <div class = "selected">
-                    <label><input id="input"type="checkbox">Example(temporarily)</label> 
-                </div>
-                <div class="userInput">
-                    <input class = "extractThisInput" type="text">
-                </div>
-            </div> -->
+                    <input class = "extractThisInput" type="text">            
+                </div>  
+            </div>          
         </div>
+        
         
     </div>
     <!--show if bcba note was chosen-->
-    <div class="bcbaNote"></div>
+    <div class="bcbaNote hide">
+        <h1 class = "category" style="padding: 3em;">Under Construction</h1>
+    </div>
+    <div id="textAreaResult">
+        <textarea value="insert result here"></textarea>
+    </div>
     <div class="noteResult"></div>
     
     <script src="/scripts/main.js"></script>
