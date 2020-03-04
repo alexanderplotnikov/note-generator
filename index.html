@@ -12,9 +12,11 @@
     <nav>
         <!--show once selected type of note-->
         <ul class="menuHidden">
-            <li><div id="logo">RBT Note Generator</div></li>
+            <li id = "rbtLogoLi"><div class="logo">RBT Note Generator</div></li>
+            <li class = "hide" id = "bcbaLogoLi"><div class="logo">BCBA Note Generator</div></li>
             <li><div type="button" class = "navButton" id = "generateNote">Generate</div></li>
-            <li><div type="button" class = "navButton" id = "bcbaNoteBtn">BCBA Note</div></li>
+            <li id="bcbaLi"><div type="button" class = "navButton" id = "bcbaNoteBtn">BCBA Note</div></li>
+            <li class = "hide" id="rbtLi"><div type="button" class = "navButton" id = "rbtNoteBtn">RBT Note</div></li>
         </ul>
     </nav>
     <!--show if rbt note was chosen-->
@@ -80,13 +82,16 @@
                 </div>  
             </div>          
         </div>
-        <div id="textAreaResult">
-            <textarea value="insert result here"></textarea>
-        </div>
+        
         
     </div>
     <!--show if bcba note was chosen-->
-    <div class="bcbaNote"></div>
+    <div class="bcbaNote hide">
+        <h1 class = "category" style="padding: 3em;">Under Construction</h1>
+    </div>
+    <div id="textAreaResult">
+        <textarea value="insert result here"></textarea>
+    </div>
     <div class="noteResult"></div>
     
     <script src="/scripts/main.js"></script>
