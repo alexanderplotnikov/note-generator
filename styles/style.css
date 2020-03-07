@@ -76,7 +76,7 @@ body{
     }
 
     /* program list layout and style */
-    #programList {
+    .allPrograms {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
     }   
@@ -87,20 +87,20 @@ body{
         color: #E68E2B;
         text-shadow: 0 0 3px red; /* OPTIONAL SHADOW */
     }
-    #programList > * { 
+    .allPrograms > * { 
         margin: 0.2em;
     }
-    #programList > div > div{
+    .allPrograms > div > div{
         display: inline-block; 
     }
-    #programList > div > .userInput{
+    .allPrograms > div > .userInput{
         float: right;
         width: 20%;
     }
     .extractThisInput{
         width: 70%;
     }
-    #programList > .openerItem > .userInput{
+    .allPrograms > .openerItem > .userInput{
         width: 100%;
     }
     .openerItem > .userInput > .extractThisInput{
@@ -152,7 +152,7 @@ body{
 }
 /* Two column layout */
 @media (min-width: 640px){
-    #programList {
+    .allPrograms {
         grid-template-columns: repeat(2, 1fr);
         padding: 0.5em;
     }  
@@ -179,7 +179,7 @@ body{
 }
 /* Three columnn layout */
 @media (min-width: 768px){
-    #programList {
+    .allPrograms {
         grid-template-columns: repeat(3, 1fr);        
     } 
     .menuHidden{
@@ -197,12 +197,12 @@ body{
 }
 /* layout adjust for bigger scrins */
 @media (min-width: 1240px){
-    #programList {
+    .allPrograms {
         
         width: 70%;
         margin: 0 auto;
     }
-    #programList > div{
+    .allPrograms > div{
         justify-self: end;
         width: 80%;
     }
