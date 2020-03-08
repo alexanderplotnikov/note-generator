@@ -26,7 +26,10 @@
             <h1 class = "category">Opener</h1>
             <div class = "openerItem programItem" id = "Apurpose">
                 <div class="selected">
-                    <label><input id="input"type="checkbox" checked>Purpose</label>
+                    <label class = "checkContainer">
+                        <input id="input"type="checkbox">Purpose
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
                 <div class="userInput">
                     <select class = "extractThisInput">
@@ -39,7 +42,7 @@
             </div>
             <div class = "openerItem" value = "" id = "username">
                 <div class="selected">
-                    <label>Learner's First Name:</label>
+                    <label>Learner's First Name</label>
                 </div>
                 <div class="userInput">
                     <input class = "extractThisInput" type="tel">            
@@ -47,7 +50,7 @@
             </div>
             <div class = "openerItem" id = "gender">
                 <div class="selected">
-                    <label>Learner's Gender:</label>
+                    <label>Learner's Gender</label>
                 </div>
                 <div class="userInput">
                     <select class = "extractThisInput">
@@ -59,14 +62,19 @@
             </div>
             <div class = "openerItem programItem" id = "Ademeanor">
                 <div class="selected">
-                    <label><input id="input"type="checkbox" checked>Learner's Demeanor:</label>
+                    <label class = "checkContainer">
+                        <input id="input"type="checkbox">Learner's Demeanor
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
                 <div class="userInput">
                     <select class = "extractThisInput">
                         <option value="" selected disabled>--Select--</option>
+                        <option value="neutral">Neutral</option>
                         <option value="smiling">Smiling</option>
                         <option value="frowning">Frowning</option>
                         <option value="crying">Crying</option>
+                        
                     </select>
                 </div>       
             </div> 
@@ -83,14 +91,115 @@
             </div>          
         </div>
         
-        
     </div>
     <!--show if bcba note was chosen-->
     <div class="bcbaNote hide">
-        <div class="allPrograms" id="bcbaProgramList">
-            <h1 class = "category" style="padding: 3em;">Under Construction</h1>
+        <div class="allPrograms" id="bcbaProgramList"> 
+            <h1 class = "category" style = "padding-top: 2em">Opener</h1>
+            <div class = "programItem openerItem" value = "" id = "Aprovider">
+                <div class="selected">
+                    <label class = "checkContainer">
+                        <input id="input"type="checkbox">Direct Therapy Provider
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="userInput">
+                    <input class = "extractThisInput" type="tel">            
+                </div>  
+            </div>
+            <div class = "openerItem programItem" id = "ApurposeBcba">
+                <div class="selected">
+                    <label class = "checkContainer">
+                        <input id="input"type="checkbox">Purpose
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="userInput">
+                    <select class = "extractThisInput">
+                        <option value="" selected disabled>--Select--</option>
+                        <option value="directBcba">Provide Direct Therapy</option>
+                        <option value="pairingBcba">Pairing</option>
+                        <option value="implementTargets">Implement Targets</option>
+                        <option value="modeling">Provide BST Modeling</option>
+                        <option value="analyzeIntervention">Analyze Intervention Procedure</option>
+                    </select>
+                </div>       
+            </div>
+            <div class = "openerItem" value = "" id = "learnerName">
+                <div class="selected">
+                    <label><input id="input"type="checkbox" checked>Learner's First Name</label>
+                </div>
+                <div class="userInput">
+                    <input class = "extractThisInput" type="tel">            
+                </div>  
+            </div>
+            <div class = "openerItem" id = "gender">
+                <div class="selected">
+                    <label>Learner's Gender</label>
+                </div>
+                <div class="userInput">
+                    <select class = "extractThisInput">
+                        <option value="novalue" disabled>--Select--</option>
+                        <option value="he" selected>Boy</option>
+                        <option value="she">Girl</option>
+                    </select>
+                </div>       
+            </div>
+            <div class = "openerItem programItem" id = "AdemeanorBcba">
+                <div class="selected">
+                    <label class = "checkContainer">
+                        <input id="input"type="checkbox">Learner's Demeanor
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="userInput">
+                    <select class = "extractThisInput">
+                        <option value="" selected disabled>--Select--</option>
+                        <option value="smiling">Smiling</option>
+                        <option value="frowning">Frowning</option>
+                        <option value="crying">Crying</option>
+                    </select>
+                </div>       
+            </div>
+            <div class = "openerItem programItem" id = "Alocation">
+                <div class="selected">
+                    <label class = "checkContainer">
+                        <input id="input"type="checkbox">Session Location
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="userInput">
+                    <select class = "extractThisInput">
+                        <option value="" selected disabled>--Select--</option>
+                        <option value="home">Home</option>
+                        <option value="clinic">Clinic</option>
+                    </select>
+                </div>       
+            </div>
+            <div class = "openerItem programItem" value = "" id = "AguestsBcba">
+                <div class="selected">
+                    <label class = "checkContainer">People Present During Session
+                        <input type="checkbox" >
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="userInput">
+                    <input class = "extractThisInput" type="text">            
+                </div>  
+            </div>    
+            <div class = "programItem openerItem" value = "" id = "Atech">
+                <div class="selected">
+                    <label class = "checkContainer">Therapist Name
+                        <input type="checkbox" >
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="userInput">
+                    <input class = "extractThisInput" type="text">            
+                </div>  
+            </div>      
         </div>
-        
+        </div>
     </div>
     <div id="textAreaResult">
         <textarea value="insert result here"></textarea>
