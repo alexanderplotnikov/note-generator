@@ -11,7 +11,7 @@ body{
 }
 @media (min-width: 300px){
     /* main content */
-    .rbtNote{
+    .bcbaNote, .rbtNote{
         padding-top: 4em;
     }
     /* navbar layout */
@@ -51,7 +51,7 @@ body{
         color: #EED295;
         box-shadow: inset 0 0 2px 0#E68E2B;
     }
-    #bcbaNoteBtn:hover{
+    #rbtNoteBtn:hover, #bcbaNoteBtn:hover{
         border:solid 2px #E68E2B;
         color: #E68E2B;
     }
@@ -62,10 +62,12 @@ body{
         display: none;
     }
     .menuHidden > li:nth-child(4){
-        display: none;
+        display: table-cell;
+        margin-top: 1em;
     }
     .menuHidden > li:nth-child(5){
-        display: none;
+        display: table-cell;
+        margin-top: 1em;
     }
     .logo{
         display: table-cell;
@@ -164,9 +166,11 @@ body{
     }
     .menuHidden > li:nth-child(4){
         display: table-cell;
+        margin-top: 0;
     }
     .menuHidden > li:nth-child(5){
         display: table-cell;
+        margin-top: 0;
     }
     .category{
         justify-self: center;
@@ -282,5 +286,15 @@ body{
   .hide{
       display: none !important;
   }
-
+  #copyButton{
+      display: block;
+      cursor: pointer;
+      margin: 0 auto;
+      margin-top: 1.5em;
+  }
+  #copyButton:hover{
+      padding: 2px;
+      border-radius: 15px;
+      box-shadow: inset 0 0 5px 0 white;
+  }
  
