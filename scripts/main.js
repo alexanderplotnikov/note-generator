@@ -1,9 +1,14 @@
 const textArea = document.querySelector("textarea");
 const resetInput = document.getElementsByTagName("input"); //used to reset input fields
+const resetSelect = document.getElementsByTagName("select");
 const generateButton = document.querySelector("#generateNote");//generate note button
 let name = document.querySelector("#username > .userInput > .extractThisInput"); // store name for Library templates
+let name2 = document.querySelector("#learnerName > .userInput > .extractThisInput"); // 
 let gender = document.querySelector("#gender > .userInput > .extractThisInput");//store gender for Library templates
+let genderBcba = document.querySelector("#genderBcba > .userInput > .extractThisInput");//store gender for Library templates
+let techname = document.querySelector("tech > .userInput > .extractThisInput");
 let userInput = "";
+
 //Variations
 function randomVariation(name, gender, programName){
     return [
@@ -59,20 +64,30 @@ function peoplePresent(people) {
         `${people}: ${userInput}`,
     ]
 }
+
 //This function returns an array of sentences of a matched id
 //libraryOfPrograms has to have an id and at least one string in result; name is optional
 function LibraryP(userInput, programId, name, gender){ 
     //handles a special case with "demeanor"
-    if(programId == "Ademeanor" || programId == "Apurpose"){
+    if(programId == "Ademeanor" || programId == "Apurpose" || programId =="ApurposeBcba" || programId == "AdemeanorBcba"){
         const specialCase = {
             //Demeanor Case
+            neutral: [`The learner presented with a neutral expression.`, `${name} presented with a neutral expression.`, `The learner presented with a flat facial expression.`, `The learner presented with a flat facial expression, requiring additional prompts to greet the therapist.`],
             smiling: [`The learner presented with a smile.`, `${name} greeted the therapist with a smile and enthusiastic greeting.`],
-            frowning: [`${gender} was frowning`],
-            crying: [`${gender} was crying`, `${gender} came in upset today`],
-            //Purpose of the Session Case
+            frowning:  [`The learner presented with a frown.`, `${name} presented with a frown, requiring additional prompting to greet the therapist.`],
+            crying: [`${name} presented upset, crying upon arrival`, `The learner presented upset, crying upon arrival`],
+            //Purpose of the Session RBT Case
             direct: [`The purpose of today's session was to provide direct therapy and implement skill acquisition and behavior decrease targets.`],
-            pairing: [`pairing fill in`],
-            generalization: [`generalization fill in`],
+            pairing: [`The purpose of today's session was to conduct pairing.`],
+            generalization: [`The purpose of today's session was to to probe for generalization.`],
+            
+            //Purpose of the Session BCBA Case
+            directBcba: [`The purpose of today's session was to provide direct therapy and implement skill acquisition and behavior decrease targets.`],
+            pairingBcba: [`The purpose of today's session was to conduct pairing.`],
+            implementTargets: [`first case`],
+            modeling: [`first case`],
+            analyzeIntervention: [`first case`],
+            
         }
         return specialCase[`${userInput}`];
     }
@@ -80,76 +95,144 @@ function LibraryP(userInput, programId, name, gender){
         //Skill Acquisition PROGRAMS
         // edit key "o" numerically to change order
         // type "exclude" to temporarily disable
-        {id: "CactivitySchedule", name: "Activity Schedule",             result: randomVariation(name, gender, "activity schedule"), header: "Skill Acquisition",},
-        {id: "Cpuzzle",           name: "Puzzle",                        result: randomVariation(name, gender, "puzzle",)},
-        {id: "Cwalking",          name: "Walking",                       result: randomVariation(name, gender, "walking")},
-        {id: "Cwaiting",          name: "Waiting",                       result: randomVariation(name, gender, "waiting")},
-        {id: "CcleanUp",          name: "Clean Up",                      result: randomVariation(name, gender, "clean up")},
-        {id: "CsafetyDirections", name: "Safety Directions",             result: randomVariation(name, gender, "safety directions")},
-        {id: "Csorting",          name: "Sorting",                       result: randomVariation(name, gender, "sorting")},
-        {id: "CstringingBeads",   name: "Stringing Beads",               result: randomVariation(name, gender, "stringing beads")},
-        {id: "CvocalImitation",   name: "Vocal Imitation",               result: randomVariation(name, gender, "vocal imitation")},
-        {id: "Cgmi",              name: "GMI",                           result: randomVariation(name, gender, "GMI")},
-        {id: "Cfmi",              name: "FMI",                           result: randomVariation(name, gender, "FMI")},
-        {id: "CimWithObjects",    name: "IM W/ Objects",                 result: randomVariation(name, gender, "imitation with objects")},
-        {id: "CattendanceSong",   name: "Attendance Song",               result: randomVariation(name, gender, "attendance song")},
-        {id: "CnapPrep",          name: "Nap Prep",                      result: randomVariation(name, gender, "nap prep")},
-        {id: "CselfRegulation",   name: "Self-Regulation",               result: randomVariation(name, gender, "self-regulation")},
-        {id: "Ctoothbrushing",    name: "Toothbrushing",                 result: randomVariation(name, gender, "toothbrushing")},
-        {id: "Creading",          name: "Reading",                       result: randomVariation(name, gender, "reading")},
-        {id: "Cart",              name: "Art",                           result: randomVariation(name, gender, "art skills")},
-        {id: "CcommunicatesNo",   name: "Communicates No",               result: randomVariation(name, gender, "communicates no")},
-        {id: "Cgreetings",        name: "Responds to Greetings",         result: randomVariation(name, gender, "responds to greetings")},
-        {id: "CrespondsToName",   name: "Responds to Name",              result: randomVariation(name, gender, "responds to name")},
-        {id: "Cmanding",          name: "Manding",                       result: randomVariation(name, gender, "manding")},
-        {id: "CdeniedAccess",     name: "Accepts Denied Access",         result: randomVariation(name, gender, "accepts denied access")},
-        {id: "Cgameplay",         name: "Gameplay",                      result: randomVariation(name, gender, "gameplay")},
-        {id: "Ctimer",            name: "Timer",                         result: randomVariation(name, gender, "response to timer")},
-        {id: "CjaInitiation",     name: "Join Attention: Init",          result: randomVariation(name, gender, "joint attention: initialization")},
-        {id: "Crelinquishing",    name: "Relinquishing",                 result: randomVariation(name, gender, "relinquishing")},
-        {id: "Cpecs",             name: "PECS",                          result: randomVariation(name, gender, "PECS")},
-        {id: "CsongGestures",     name: "Gestures During Song",          result: randomVariation(name, gender, "gestures during song")},
-        {id: "CchooseBtwnTwo",    name: "Choose Btwn Two",               result: randomVariation(name, gender, "choose between two items")},
-        {id: "CmandsMissing",     name: "Mands for Missing",             result: randomVariation(name, gender, "mands for missing objects")},
-        {id: "CpeerRequests",     name: "Spont. Resp. to Peer Requests", result: randomVariation(name, gender, "spontaneous response to peer requests")},
-        {id: "CsmallGroups",      name: "Small Group Activites",         result: randomVariation(name, gender, "small group activities")},
-        {id: "Cinterval",         name: "Interval Data",                 result: randomVariation(name, gender, "interval data")},
-        {id: "Cnp",               name: "Non-Preferred Activites",       result: randomVariation(name, gender, "non-preferred activites")},
-        {id: "Cp",                name: "Preferred Activites",           result: randomVariation(name, gender, "preferred activites")},
-        {id: "CmodelBuilding",    name: "Model Building",                result: randomVariation(name, gender, "model building")},
+        {o: "rbt", id: "CactivitySchedule", name: "Activity Schedule",             result: randomVariation(name, gender, "activity schedule"), header: "Skill Acquisition",},
+        {o: "rbt", id: "Cpuzzle",           name: "Puzzle",                        result: randomVariation(name, gender, "puzzle",)},
+        {o: "rbt", id: "Cwalking",          name: "Walking",                       result: randomVariation(name, gender, "walking")},
+        {o: "rbt", id: "Cwaiting",          name: "Waiting",                       result: randomVariation(name, gender, "waiting")},
+        {o: "rbt", id: "CcleanUp",          name: "Clean Up",                      result: randomVariation(name, gender, "clean up")},
+        {o: "rbt", id: "CsafetyDirections", name: "Safety Directions",             result: randomVariation(name, gender, "safety directions")},
+        {o: "rbt", id: "Csorting",          name: "Sorting",                       result: randomVariation(name, gender, "sorting")},
+        {o: "rbt", id: "CstringingBeads",   name: "Stringing Beads",               result: randomVariation(name, gender, "stringing beads")},
+        {o: "rbt", id: "CvocalImitation",   name: "Vocal Imitation",               result: randomVariation(name, gender, "vocal imitation")},
+        {o: "rbt", id: "Cgmi",              name: "GMI",                           result: randomVariation(name, gender, "GMI")},
+        {o: "rbt", id: "Cfmi",              name: "FMI",                           result: randomVariation(name, gender, "FMI")},
+        {o: "rbt", id: "CimWithObjects",    name: "IM W/ Objects",                 result: randomVariation(name, gender, "imitation with objects")},
+        {o: "rbt", id: "CattendanceSong",   name: "Attendance Song",               result: randomVariation(name, gender, "attendance song")},
+        {o: "rbt", id: "CnapPrep",          name: "Nap Prep",                      result: randomVariation(name, gender, "nap prep")},
+        {o: "rbt", id: "CselfRegulation",   name: "Self-Regulation",               result: randomVariation(name, gender, "self-regulation")},
+        {o: "rbt", id: "Ctoothbrushing",    name: "Toothbrushing",                 result: randomVariation(name, gender, "toothbrushing")},
+        {o: "rbt", id: "Creading",          name: "Reading",                       result: randomVariation(name, gender, "reading")},
+        {o: "rbt", id: "Cart",              name: "Art",                           result: randomVariation(name, gender, "art skills")},
+        {o: "rbt", id: "CcommunicatesNo",   name: "Communicates No",               result: randomVariation(name, gender, "communicates no")},
+        {o: "rbt", id: "Cgreetings",        name: "Responds to Greetings",         result: randomVariation(name, gender, "responds to greetings")},
+        {o: "rbt", id: "CrespondsToName",   name: "Responds to Name",              result: randomVariation(name, gender, "responds to name")},
+        {o: "rbt", id: "Cmanding",          name: "Manding",                       result: randomVariation(name, gender, "manding")},
+        {o: "rbt", id: "CdeniedAccess",     name: "Accepts Denied Access",         result: randomVariation(name, gender, "accepts denied access")},
+        {o: "rbt", id: "Cgameplay",         name: "Gameplay",                      result: randomVariation(name, gender, "gameplay")},
+        {o: "rbt", id: "Ctimer",            name: "Timer",                         result: randomVariation(name, gender, "response to timer")},
+        {o: "rbt", id: "CjaInitiation",     name: "Join Attention: Init",          result: randomVariation(name, gender, "joint attention: initialization")},
+        {o: "rbt", id: "Crelinquishing",    name: "Relinquishing",                 result: randomVariation(name, gender, "relinquishing")},
+        {o: "rbt", id: "Cpecs",             name: "PECS",                          result: randomVariation(name, gender, "PECS")},
+        {o: "rbt", id: "CsongGestures",     name: "Gestures During Song",          result: randomVariation(name, gender, "gestures during song")},
+        {o: "rbt", id: "CchooseBtwnTwo",    name: "Choose Btwn Two",               result: randomVariation(name, gender, "choose between two items")},
+        {o: "rbt", id: "CmandsMissing",     name: "Mands for Missing",             result: randomVariation(name, gender, "mands for missing objects")},
+        {o: "rbt", id: "CpeerRequests",     name: "Spont. Resp. to Peer Requests", result: randomVariation(name, gender, "spontaneous response to peer requests")},
+        {o: "rbt", id: "CsmallGroups",      name: "Small Group Activites",         result: randomVariation(name, gender, "small group activities")},
+        {o: "rbt", id: "Cinterval",         name: "Interval Data",                 result: randomVariation(name, gender, "interval data")},
+        {o: "rbt", id: "Cnp",               name: "Non-Preferred Activites",       result: randomVariation(name, gender, "non-preferred activites")},
+        {o: "rbt", id: "Cp",                name: "Preferred Activites",           result: randomVariation(name, gender, "preferred activites")},
+        {o: "rbt", id: "CmodelBuilding",    name: "Model Building",                result: randomVariation(name, gender, "model building")},
         //Behaviors Targeted for Decrease
-        {id: "Haggression",       name: "Aggression",                    result: problemVariation(name, gender, "aggression"), header: "Behaviors Targeted for Decrease",},
-        {id: "Hthrowing",         name: "Throwing",                      result: problemVariation(name, gender, "throwing")},
-        {id: "Hcrying",           name: "Crying",                        result: problemVariation(name, gender, "crying")},
-        {id: "Hnon-compliance",   name: "Non-Compliance",                result: problemVariation(name, gender, "non-compliance")},
-        {id: "Htantrum",          name: "Tantrum",                       result: problemVariation(name, gender, "tantrum")},
-        {id: "Hwhining",          name: "Whining",                       result: problemVariation(name, gender, "whining")},
-        {id: "Hflopping",         name: "Flopping",                      result: problemVariation(name, gender, "flopping")},
-        {id: "Hsib",              name: "SIB",                           result: problemVariation(name, gender, "SIB")},
-        {id: "Hkicking",          name: "Kicking",                       result: problemVariation(name, gender, "kicking")},
-        {id: "Hyelling",          name: "Yelling",                       result: problemVariation(name, gender, "yelling")},
-        {id: "HhittingOthers",    name: "Hitting Others",                result: problemVariation(name, gender, "hitting others")},
-        {id: "Hscripting",        name: "Scripting",                     result: problemVariation(name, gender, "scripting")},
-        {id: "Hmouthing",         name: "Mouthing",                      result: problemVariation(name, gender, "mouthing")},
-        {id: "HhittingSelf",      name: "Hitting Self",                  result: problemVariation(name, gender, "hitting self")},
-        {id: "Hbiting",           name: "Biting",                        result: problemVariation(name, gender, "biting")},
-        {id: "Hspitting",         name: "Spitting",                      result: problemVariation(name, gender, "spitting")},
-        {id: "Hdumping",          name: "Dumping",                       result: problemVariation(name, gender, "dumping")},
-        {id: "Hdisrobing",        name: "Disrobing",                     result: problemVariation(name, gender, "disrobing")},
+        {o: "rbt", id: "Haggression",       name: "Aggression",                    result: problemVariation(name, gender, "aggression"), header: "Behaviors Targeted for Decrease",},
+        {o: "rbt", id: "Hthrowing",         name: "Throwing",                      result: problemVariation(name, gender, "throwing")},
+        {o: "rbt", id: "Hcrying",           name: "Crying",                        result: problemVariation(name, gender, "crying")},
+        {o: "rbt", id: "Hnon-compliance",   name: "Non-Compliance",                result: problemVariation(name, gender, "non-compliance")},
+        {o: "rbt", id: "Htantrum",          name: "Tantrum",                       result: problemVariation(name, gender, "tantrum")},
+        {o: "rbt", id: "Hwhining",          name: "Whining",                       result: problemVariation(name, gender, "whining")},
+        {o: "rbt", id: "Hflopping",         name: "Flopping",                      result: problemVariation(name, gender, "flopping")},
+        {o: "rbt", id: "Hsib",              name: "SIB",                           result: problemVariation(name, gender, "SIB")},
+        {o: "rbt", id: "Hkicking",          name: "Kicking",                       result: problemVariation(name, gender, "kicking")},
+        {o: "rbt", id: "Hyelling",          name: "Yelling",                       result: problemVariation(name, gender, "yelling")},
+        {o: "rbt", id: "HhittingOthers",    name: "Hitting Others",                result: problemVariation(name, gender, "hitting others")},
+        {o: "rbt", id: "Hscripting",        name: "Scripting",                     result: problemVariation(name, gender, "scripting")},
+        {o: "rbt", id: "Hmouthing",         name: "Mouthing",                      result: problemVariation(name, gender, "mouthing")},
+        {o: "rbt", id: "HhittingSelf",      name: "Hitting Self",                  result: problemVariation(name, gender, "hitting self")},
+        {o: "rbt", id: "Hbiting",           name: "Biting",                        result: problemVariation(name, gender, "biting")},
+        {o: "rbt", id: "Hspitting",         name: "Spitting",                      result: problemVariation(name, gender, "spitting")},
+        {o: "rbt", id: "Hdumping",          name: "Dumping",                       result: problemVariation(name, gender, "dumping")},
+        {o: "rbt", id: "Hdisrobing",        name: "Disrobing",                     result: problemVariation(name, gender, "disrobing")},
         //Closer
-        {id: "Kpretest",           name: "Pretest Run?",                  result: closerVariation("Pretests Conducted:")},
-        {id: "KnewPrograms",       name: "New Programs Run?",             result: closerVariation("New Programs:")},
-        {id: "KprogramRevisions",  name: "Program Revisions?",            result: closerVariation("Program Revisions:")},
-        {id: "KgeneralizationProbes", name: "Generalization Probes?",     result: closerVariation("Generalization Probes Conducted:")},
-        {id: "KnewTargets",        name: "New Targets?",                  result: closerVariation("New Targets:")},
-        {id: "Kmaintenance",       name: "Maintenance?",                  result: closerVariation("Maintenance Updates:")},
-        {id: "KnewMotivationalSystem", name: "New Motivational System?",  result: closerVariation("New Motivational System:")},
-        {id: "KcriticalInformation", name: "Any Critical Info?",          result: closerVariation("Critical Info:"), header: "Closer",},
+        {o: "rbt", id: "Kpretest",           name: "Pretest Run?",                  result: closerVariation("Pretests Conducted:")},
+        {o: "rbt", id: "KnewPrograms",       name: "New Programs Run?",             result: closerVariation("New Programs:")},
+        {o: "rbt", id: "KprogramRevisions",  name: "Program Revisions?",            result: closerVariation("Program Revisions:")},
+        {o: "rbt", id: "KgeneralizationProbes", name: "Generalization Probes?",     result: closerVariation("Generalization Probes Conducted:")},
+        {o: "rbt", id: "KnewTargets",        name: "New Targets?",                  result: closerVariation("New Targets:")},
+        {o: "rbt", id: "Kmaintenance",       name: "Maintenance?",                  result: closerVariation("Maintenance Updates:")},
+        {o: "rbt", id: "KnewMotivationalSystem", name: "New Motivational System?",  result: closerVariation("New Motivational System:")},
+        {o: "rbt", id: "KcriticalInformation", name: "Any Critical Info?",          result: closerVariation("Critical Info:"), header: "Closer",},
 
-        //Purpose of Session
-        {o: "disabled", id: "purpose", name: "Purpose of Session", result: []},
+        
         //Opening Statement
-        {o: "disabled", id: "Aguests", name: "People Present During Session", result: peoplePresent("People Present:")},
+        {o: "disabled", id: "Aguests", name: "People Present During Session", result: peoplePresent("People Present")},
+    
+        //BCBA Opening Statement
+        {o: "disabled", id: "Aprovider",       name: "Direct Therapy Provider",                    result: [`${userInput}, the BCBA conducted direct therapy with ${name} throughout today's session.`],},
+        {o: "disabled", id: "Atech",         name: "Tech Name",                      result: []},
+        {o: "disabled", id: "Alocation",         name: "Location",                      result: [`Session took place at the ${userInput}`]},
+        
+        //BCBA Skill Acquisition Programs
+        {o: "bcba", id: "DactivitySchedule", name: "Activity Schedule",             result: randomVariation(name, gender, "activity schedule"), header: "Skill Acquisition",},
+        {o: "bcba", id: "Dpuzzle",           name: "Puzzle",                        result: randomVariation(name, gender, "puzzle",)},
+        {o: "bcba", id: "Dwalking",          name: "Walking",                       result: randomVariation(name, gender, "walking")},
+        {o: "bcba", id: "Dwaiting",          name: "Waiting",                       result: randomVariation(name, gender, "waiting")},
+        {o: "bcba", id: "DcleanUp",          name: "Clean Up",                      result: randomVariation(name, gender, "clean up")},
+        {o: "bcba", id: "DsafetyDirections", name: "Safety Directions",             result: randomVariation(name, gender, "safety directions")},
+        {o: "bcba", id: "Dsorting",          name: "Sorting",                       result: randomVariation(name, gender, "sorting")},
+        {o: "bcba", id: "DstringingBeads",   name: "Stringing Beads",               result: randomVariation(name, gender, "stringing beads")},
+        {o: "bcba", id: "DvocalImitation",   name: "Vocal Imitation",               result: randomVariation(name, gender, "vocal imitation")},
+        {o: "bcba", id: "Dgmi",              name: "GMI",                           result: randomVariation(name, gender, "GMI")},
+        {o: "bcba", id: "Dfmi",              name: "FMI",                           result: randomVariation(name, gender, "FMI")},
+        {o: "bcba", id: "DimWithObjects",    name: "IM W/ Objects",                 result: randomVariation(name, gender, "imitation with objects")},
+        {o: "bcba", id: "DattendanceSong",   name: "Attendance Song",               result: randomVariation(name, gender, "attendance song")},
+        {o: "bcba", id: "DnapPrep",          name: "Nap Prep",                      result: randomVariation(name, gender, "nap prep")},
+        {o: "bcba", id: "DselfRegulation",   name: "Self-Regulation",               result: randomVariation(name, gender, "self-regulation")},
+        {o: "bcba", id: "Dtoothbrushing",    name: "Toothbrushing",                 result: randomVariation(name, gender, "toothbrushing")},
+        {o: "bcba", id: "Dreading",          name: "Reading",                       result: randomVariation(name, gender, "reading")},
+        {o: "bcba", id: "Dart",              name: "Art",                           result: randomVariation(name, gender, "art skills")},
+        {o: "bcba", id: "DcommunicatesNo",   name: "Communicates No",               result: randomVariation(name, gender, "communicates no")},
+        {o: "bcba", id: "Dgreetings",        name: "Responds to Greetings",         result: randomVariation(name, gender, "responds to greetings")},
+        {o: "bcba", id: "DrespondsToName",   name: "Responds to Name",              result: randomVariation(name, gender, "responds to name")},
+        {o: "bcba", id: "Dmanding",          name: "Manding",                       result: randomVariation(name, gender, "manding")},
+        {o: "bcba", id: "DdeniedAccess",     name: "Accepts Denied Access",         result: randomVariation(name, gender, "accepts denied access")},
+        {o: "bcba", id: "Dgameplay",         name: "Gameplay",                      result: randomVariation(name, gender, "gameplay")},
+        {o: "bcba", id: "Dtimer",            name: "Timer",                         result: randomVariation(name, gender, "response to timer")},
+        {o: "bcba", id: "DjaInitiation",     name: "Join Attention: Init",          result: randomVariation(name, gender, "joint attention: initialization")},
+        {o: "bcba", id: "Drelinquishing",    name: "Relinquishing",                 result: randomVariation(name, gender, "relinquishing")},
+        {o: "bcba", id: "Dpecs",             name: "PECS",                          result: randomVariation(name, gender, "PECS")},
+        {o: "bcba", id: "DsongGestures",     name: "Gestures During Song",          result: randomVariation(name, gender, "gestures during song")},
+        {o: "bcba", id: "DchooseBtwnTwo",    name: "Choose Btwn Two",               result: randomVariation(name, gender, "choose between two items")},
+        {o: "bcba", id: "DmandsMissing",     name: "Mands for Missing",             result: randomVariation(name, gender, "mands for missing objects")},
+        {o: "bcba", id: "DpeerRequests",     name: "Spont. Resp. to Peer Requests", result: randomVariation(name, gender, "spontaneous response to peer requests")},
+        {o: "bcba", id: "DsmallGroups",      name: "Small Group Activites",         result: randomVariation(name, gender, "small group activities")},
+        {o: "bcba", id: "Dinterval",         name: "Interval Data",                 result: randomVariation(name, gender, "interval data")},
+        {o: "bcba", id: "Dnp",               name: "Non-Preferred Activites",       result: randomVariation(name, gender, "non-preferred activites")},
+        {o: "bcba", id: "Dp",                name: "Preferred Activites",           result: randomVariation(name, gender, "preferred activites")},
+        {o: "bcba", id: "DmodelBuilding",    name: "Model Building",                result: randomVariation(name, gender, "model building")},
+
+        //BCBA Behaviors Targeted for Decrease
+        {o: "bcba", id: "Jaggression",       name: "Aggression",                    result: problemVariation(name, gender, "aggression"), header: "Behaviors Targeted for Decrease",},
+        {o: "bcba", id: "Jthrowing",         name: "Throwing",                      result: problemVariation(name, gender, "throwing")},
+        {o: "bcba", id: "Jcrying",           name: "Crying",                        result: problemVariation(name, gender, "crying")},
+        {o: "bcba", id: "Jnon-compliance",   name: "Non-Compliance",                result: problemVariation(name, gender, "non-compliance")},
+        {o: "bcba", id: "Jtantrum",          name: "Tantrum",                       result: problemVariation(name, gender, "tantrum")},
+        {o: "bcba", id: "Jwhining",          name: "Whining",                       result: problemVariation(name, gender, "whining")},
+        {o: "bcba", id: "Jflopping",         name: "Flopping",                      result: problemVariation(name, gender, "flopping")},
+        {o: "bcba", id: "Jsib",              name: "SIB",                           result: problemVariation(name, gender, "SIB")},
+        {o: "bcba", id: "Jkicking",          name: "Kicking",                       result: problemVariation(name, gender, "kicking")},
+        {o: "bcba", id: "Jyelling",          name: "Yelling",                       result: problemVariation(name, gender, "yelling")},
+        {o: "bcba", id: "JhittingOthers",    name: "Hitting Others",                result: problemVariation(name, gender, "hitting others")},
+        {o: "bcba", id: "Jscripting",        name: "Scripting",                     result: problemVariation(name, gender, "scripting")},
+        {o: "bcba", id: "Jmouthing",         name: "Mouthing",                      result: problemVariation(name, gender, "mouthing")},
+        {o: "bcba", id: "JhittingSelf",      name: "Hitting Self",                  result: problemVariation(name, gender, "hitting self")},
+        {o: "bcba", id: "Jbiting",           name: "Biting",                        result: problemVariation(name, gender, "biting")},
+        {o: "bcba", id: "Jspitting",         name: "Spitting",                      result: problemVariation(name, gender, "spitting")},
+        {o: "bcba", id: "Jdumping",          name: "Dumping",                       result: problemVariation(name, gender, "dumping")},
+        {o: "bcba", id: "Jdisrobing",        name: "Disrobing",                     result: problemVariation(name, gender, "disrobing")},
+
+        //BCBA Summary
+
+
+        //BCBA Closer
     ];
     if(isGenerate){
         return libraryOfPrograms;//returns an array formatted for constructing html
@@ -177,12 +260,15 @@ function generateHtml(){
     });//sorts an array in alphabetic order
   
     for (let i = 0; i < libraryArray.length; i++){
-        let mainNode = document.querySelector("#programList");
+        const mainNode = document.querySelector("#programList");
+        const bcbaNode = document.querySelector("#bcbaProgramList");
         let header = document.createElement("H1");
-        if(libraryArray[i].hasOwnProperty("header")){
-            header.className = "category";
-            header.innerHTML = `${libraryArray[i]["header"]}`
+        header.className = "category";
+        header.innerHTML = `${libraryArray[i]["header"]}`
+        if(libraryArray[i].hasOwnProperty("header") && (libraryArray[i]["o"] == "rbt")){            
             mainNode.appendChild(header)
+        } else if (libraryArray[i].hasOwnProperty("header") && (libraryArray[i]["o"] == "bcba")) {
+            bcbaNode.appendChild(header)
         }
         if(libraryArray[i]["o"] == "disabled"){
             continue; // excludes items from html with "disabled" tag in LibraryP
@@ -194,25 +280,29 @@ function generateHtml(){
         //append element to parent
         //add class checkContainer to label
         //append span to userInput
-        let label = document.createElement("LABEL"); label.classList.add("checkContainer");
-        let input = document.createElement("INPUT");
-        let span = document.createElement("SPAN"); span.classList.add("checkmark");
-        let divParent = document.createElement("DIV");
-        let divSelected = document.createElement("DIV");
-        let divUserInput = document.createElement("DIV");
-        let extractInput = document.createElement("INPUT"); 
-        let attrType = document.createAttribute("type"); attrType.value = "checkbox";
-        let attrClassSelected = document.createAttribute("class"); attrClassSelected.value = "selected";
-        let attrClassProgramItem = document.createAttribute("class"); attrClassProgramItem.value = "programItem";
-        let attrIdProgramId = document.createAttribute("id"); attrIdProgramId.value = `${libraryArray[i]["id"]}`;//variable ID
-        let attrTypeText = document.createAttribute("type"); attrTypeText.value = "text";
-        let attrClassExtract = document.createAttribute("class"); attrClassExtract.value = "extractThisInput";
-        let attrClassUserInput = document.createAttribute("class"); attrClassUserInput.value = "userInput";
+        const label = document.createElement("LABEL"); label.classList.add("checkContainer");
+        const input = document.createElement("INPUT");
+        const span = document.createElement("SPAN"); span.classList.add("checkmark");
+        const divParent = document.createElement("DIV");
+        const divBcba = document.createElement("DIV");
+        const divSelected = document.createElement("DIV");
+        const divUserInput = document.createElement("DIV");
+        const extractInput = document.createElement("INPUT"); 
+        const attrType = document.createAttribute("type"); attrType.value = "checkbox";
+        const attrClassSelected = document.createAttribute("class"); attrClassSelected.value = "selected";
+        const attrClassProgramItem = document.createAttribute("class"); attrClassProgramItem.value = "programItem";
+        const attrIdProgramId = document.createAttribute("id"); attrIdProgramId.value = `${libraryArray[i]["id"]}`;//variable ID
+        const attrTypeText = document.createAttribute("type"); attrTypeText.value = "text";
+        const attrClassExtract = document.createAttribute("class"); attrClassExtract.value = "extractThisInput";
+        const attrClassUserInput = document.createAttribute("class"); attrClassUserInput.value = "userInput";
+
+        
         
         divParent.setAttributeNode(attrClassProgramItem);
         divParent.setAttributeNode(attrIdProgramId);
         divSelected.setAttributeNode(attrClassSelected);
         input.setAttributeNode(attrType);
+        input.innerText = " / ";
         label.appendChild(input);
         label.append(span);
         label.append(`${libraryArray[i]["name"]}`); //variable NAME
@@ -224,15 +314,16 @@ function generateHtml(){
         divUserInput.setAttributeNode(attrClassUserInput);
         divUserInput.appendChild(extractInput);
         divParent.appendChild(divUserInput);
-        mainNode.appendChild(divParent);
-        //const checkStatus = querySelector(".selected > .checkContainer > input");
-        //const inputStatus = querySelector(".extractThisInput");
+        if(libraryArray[i]["o"] == "rbt"){
+            mainNode.appendChild(divParent);
+        } else if(libraryArray[i]["o"] == "bcba"){
+            bcbaNode.appendChild(divParent);
+        } 
         input.addEventListener("click", () =>{
             
                 extractInput.classList.toggle("hide");
             
         });
-        
     }
 }
 generateHtml();//calling function to generate html on page load
@@ -255,6 +346,7 @@ function generateNote(usrname, usrgender) {
                 break;//or use continue?; continue prompts an error, but then continues with note generation
             }
             let resultArray = new LibraryP(userInput, programId, usrname, usrgender); //updates programs Library with new userInput
+            //console.log(resultArray)
             randomNumber = (Math.floor(Math.random() * Math.floor(resultArray.length)))//generates random number
             if(resultArray[randomNumber].charAt(0) == "h" || resultArray[randomNumber].charAt(0) == "s"){
                 generatedNote += resultArray[randomNumber].charAt(0).toUpperCase() + resultArray[randomNumber].substr(1) + " ";    
@@ -274,28 +366,48 @@ function resetInputField(){
         resetInput[i].value = "";
         resetInput[i].checked = false;
     }
+    for (let j = 0; j < resetSelect.length; j++){
+        resetSelect[j].value = "";
+    }
+    textArea.value = "";
 }
 
-//resetInputField();
+resetInputField();
 //apply this function directly in projectOfLibrary array Ex. ${toPercent(userInput)}
 function toPercent(input){
     input = input.split("/");
     return Math.round(input[0] / input[1] * 100) + "%";
-}  
+}
+const copyButton = document.querySelector("#copyButton");
+//Copy button
+function copyText() {
+    /* Select the text field */
+    textArea.select();
+    textArea.setSelectionRange(0, 99999); /*For mobile devices*/
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+  }
 //Event listeners
+copyButton.addEventListener("click", () => copyText());
 generateButton.addEventListener("click", () => {
-    usrname = name.value.trim();//use trim to erase white spaces Ex. "   " returns ""
-    usrgender = gender.value;
-    if(usrname == ""){
-        alert("missing name");
-    }
-    else if(usrgender == "novalue"){
+   usrname = name.value.trim();//use trim to erase white spaces Ex. "   " returns ""
+   usrnameBcba = name2.value.trim();
+   usrgender = gender.value;
+   usrgenderBcba = genderBcba.value;
+    if(usrgender == "novalue"){
         alert("missing gender");
     }
-    else{
+    else if(!usrname == ""){
         usrname = usrname[0].toUpperCase() + usrname.slice(1).toLowerCase(); //ensures name capitalization
         generateNote(usrname, usrgender);
-    } 
+    }
+    else if(!usrnameBcba == ""){
+        usrnameBcba = usrnameBcba[0].toUpperCase() + usrnameBcba.slice(1).toLowerCase(); //ensures name capitalization
+        generateNote(usrnameBcba, usrgenderBcba);
+    }
+    else{
+        alert("missing name");
+    }
 });
 
 const bcbaBtn = document.querySelector("#bcbaLi");
@@ -310,6 +422,7 @@ for (let btn of navBarBtnArray){
     btn.addEventListener("click", () =>{
         for (let elem of navBarArray){
             elem.classList.toggle("hide");
+            resetInputField();
         }
     });
 }
